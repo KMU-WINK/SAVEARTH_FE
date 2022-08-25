@@ -1,38 +1,14 @@
-import React, { useState,useLayoutEffect,useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import * as Location from 'expo-location';
 import {StyleSheet, Dimensions} from 'react-native';
-import MapView,{PROVIDER_GOOGLE, Marker,AnimatedRegion,Polyline,MarkerAnimated} from 'react-native-maps';
+import MapView,{PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import styled from 'styled-components/native';
 import {BottomModal} from "../components/MapScreen/BottomModal";
 
 export const MapScreen = ({navigation}) => {
     const [location, setLocation] = useState(null);
     const [modalType, setModalType] = useState(0);
-    const [initialRegion, setInitialRegion] = useState({
-        latitude: 35.91395373474155,
-        longitude: 127.73829440215488,
-        latitudeDelta: 5,
-        longitudeDelta: 5,
-    })
     const [errorMsg, setErrorMsg] = useState(null);
-    // useLayoutEffect(() => {
-    //     (async () => {
-    //         let {status} = await Location.requestForegroundPermissionsAsync();
-    //         if (status !== 'granted') {
-    //             setErrorMsg('Permission to access location was denied');
-    //             return;
-    //         }
-    //
-    //         let location = await Location.getCurrentPositionAsync({});
-    //
-    //         setLocation({
-    //             latitude: location.coords.latitude, longitude: location.coords.longitude,
-    //             latitudeDelta: 0.0922,
-    //             longitudeDelta: 0.0421,
-    //         })
-    //         console.log(location);
-    //     })();
-    // }, []);
 
     useEffect(() => {
         (async () => {
