@@ -8,14 +8,15 @@ import {DelTrashCanModal} from "./DelTrashCanModal";
 
 export const BottomModal = ({isModalVisible, type, toggleModal}) => {
     return <Modal
-        onBackdropPress={()=>toggleModal()}
-        isVisible={isModalVisible}
-        style={styles.bottomModal}
-    >
-        {type === "AddTrash" && <AddTrashModal/>}
-        {type === "AddTrashCan" && <AddTrashCanModal/>}
-        {type === "DelTrash" && <DelTrashModal/>}
-        {type === "DelTrashCan" && <DelTrashCanModal/>}
+            onBackdropPress={()=>toggleModal()}
+            isVisible={isModalVisible}
+            style={styles.bottomModal}
+        >
+
+        {type === 0 && <AddTrashModal/>}
+        {type === 1 && <AddTrashCanModal/>}
+        {type === 2 && <DelTrashModal/>}
+        {type === 3 && <DelTrashCanModal/>}
     </Modal>
 }
 
