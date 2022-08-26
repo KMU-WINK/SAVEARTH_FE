@@ -17,8 +17,8 @@ export const LoginScreen=({navigation})=>{
     }
 
     return (
-        <SafeAreaView style={styles.contianer}>
-            <View style={styles.image}></View>
+        <SafeAreaView style={styles.container}>
+            <View style={styles.image}/>
             <Text style={styles.title}>SAVEARTH</Text>
 
               <LoginInput
@@ -32,7 +32,7 @@ export const LoginScreen=({navigation})=>{
                   setValue={pwHandler}
                   placeholder={"비밀번호를 입력해주세요"}
                   secureTextEntry={true}/>
-            
+
             <View style={styles.signUpTextContainer}>
               <Text style={styles.signUpText}>아직 회원이 아니신가요?</Text>
               <Pressable onPress={()=>navigation.navigate('SignUp')}><Text style={[styles.signUpText, styles.signUpTextLink]}> 회원가입</Text></Pressable>
@@ -43,7 +43,7 @@ export const LoginScreen=({navigation})=>{
   }
 
   const styles = StyleSheet.create({
-    contianer: {
+    container: {
         alignItems: 'center',
         flex: 1,
         backgroundColor: '#fff',

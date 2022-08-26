@@ -10,8 +10,8 @@ export const SettingMenuScreen = ({navigation}) => {
         <View style={styles.textContainer}>
             <Text style={styles.text}>설정</Text>
         </View>
-        <SettingMenuButton text={'닉네임 변경하기'}  pressHandler={()=>navigation.navigate('SettingNickname')}/>
-        <SettingMenuButton text={'로그아웃' }/>
+        <SettingMenuButton text='닉네임 변경하기' pressHandler={()=>navigation.navigate('SettingNickname')}/>
+        <SettingMenuButton text='로그아웃'/>
     </SafeAreaView>
     );
 }
@@ -23,12 +23,11 @@ const styles = StyleSheet.create({
         alignItems:'center',
     },
     textContainer:{
-        marginTop: 48
+        // marginTop: 48
     },
     text:{
         fontFamily: 'NotoSansKR_700Bold',
         fontSize:34,
-        width: 343,
         height: 41,
         textAlign:'left',
         marginBottom:30,
