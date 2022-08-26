@@ -8,6 +8,7 @@ import {BottomModal} from "../components/MapScreen/BottomModal";
 export const MapScreen = ({navigation}) => {
     const [location, setLocation] = useState(null);
     const [modalType, setModalType] = useState(0);
+    const [isMarker, setIsMarker] = useState(false);
     const [errorMsg, setErrorMsg] = useState(null);
 
     useEffect(() => {
@@ -17,7 +18,6 @@ export const MapScreen = ({navigation}) => {
                 setErrorMsg('Permission to access location was denied');
                 return;
             }
-
             let location = await Location.getCurrentPositionAsync({});
             setLocation(location);
             console.log(location)
@@ -28,11 +28,12 @@ export const MapScreen = ({navigation}) => {
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
+        // setIsMarker(false);
     };
 
 
     if (location) return <Container>
-        <Title onPress={toggleModal}>지도</Title>
+        <Title>지도</Title>
             <MapView
                 provider={PROVIDER_GOOGLE}
                 showsUserLocation={true}
@@ -48,8 +49,9 @@ export const MapScreen = ({navigation}) => {
                 followUserLocation={true}
                 onPress={(e)=>{
                     console.log(e.nativeEvent.coordinate);
-                    setModalType(3);
+                    if (!isMarker) setModalType(0);
                     setModalVisible(!isModalVisible);
+                    // console.log(modalType);
                     // const newTrashLocation=e.nativeEvent.coordinate;
                     // const trashLocations =this.state.trashLocations; //기존 쓰레기통 위치들
                     // this.setState({trashLocations:[...trashLocations,newTrashLocation]})
@@ -65,7 +67,11 @@ export const MapScreen = ({navigation}) => {
                     image="https://user-images.githubusercontent.com/54919662/186675058-62988681-ae0c-4d03-aaa2-7ed19af31b97.png"
                     title={'쓰레기 위치'}
                     description={'쓰레기 위치'}
-                    onPress={()=>{console.log("쓰레기 클릭")}}
+                    onPress={(e)=> {
+                        setModalType(2);
+                        setIsMarker(true);
+                        setModalVisible(!isModalVisible);
+                    }}
                 />
                 <Marker
                     coordinate={{
@@ -77,7 +83,11 @@ export const MapScreen = ({navigation}) => {
                     image="https://user-images.githubusercontent.com/54919662/186675229-b2e73f22-d989-4290-8204-0c38fa38ed88.png"
                     title={'쓰레기통 위치'}
                     description={'쓰레기통 위치'}
-                    onPress={()=>console.log("쓰레키통 클릭")}
+                    onPress={(e)=> {
+                        setModalType(3);
+                        setIsMarker(true);
+                        setModalVisible(!isModalVisible);
+                    }}
                 />
             </MapView>
             <BottomModal isModalVisible={isModalVisible}

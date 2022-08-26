@@ -7,16 +7,24 @@ import {DelTrashModal} from "./DelTrashModal";
 import {DelTrashCanModal} from "./DelTrashCanModal";
 
 export const BottomModal = ({isModalVisible, type, toggleModal}) => {
+    const SelectModal = (type) => {
+        switch (type.type) {
+            case 1:
+                return <AddTrashCanModal/>
+            case 2:
+                return <DelTrashModal/>
+            case 3:
+                return <DelTrashCanModal/>
+            default:
+                return <AddTrashModal/>
+        }
+    }
     return <Modal
             onBackdropPress={()=>toggleModal()}
             isVisible={isModalVisible}
             style={styles.bottomModal}
         >
-
-        {type === 0 && <AddTrashModal/>}
-        {type === 1 && <AddTrashCanModal/>}
-        {type === 2 && <DelTrashModal/>}
-        {type === 3 && <DelTrashCanModal/>}
+        <SelectModal type={type}/>
     </Modal>
 }
 
