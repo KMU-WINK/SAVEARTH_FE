@@ -31,7 +31,8 @@ export const LoginScreen=({navigation})=>{
                   value={pw}
                   setValue={pwHandler}
                   placeholder={"비밀번호를 입력해주세요"}
-                  secureTextEntry={true}/>
+                  // secureTextEntry={true}
+              />
 
             <View style={styles.signUpTextContainer}>
               <Text style={styles.signUpText}>아직 회원이 아니신가요?</Text>
@@ -40,7 +41,7 @@ export const LoginScreen=({navigation})=>{
             <BottomButton
               style={styles.loginButton }
               text={"로그인"}
-              pressHandler={()=>navigation.navigate('TabNav')}
+              pressHandler={()=>navigation.navigate('MainScreen')}
               buttonControl={id&&pw}/>
         </SafeAreaView>
     );

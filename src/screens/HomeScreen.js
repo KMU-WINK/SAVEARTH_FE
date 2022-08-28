@@ -6,10 +6,9 @@ import {useEffect, useState} from "react";
 import {Dimensions, StyleSheet} from "react-native";
 import {HomeButton} from "../components/HomeScreen/HomeButton";
 
-export const HomeScreen = ({navigation}) => {
+export const HomeScreen = () => {
     const [location, setLocation] = useState(null);
     const [plogging, setPlogging] = useState(false);
-    console.log(plogging);
 
     useEffect(() => {
         (async () => {
@@ -23,31 +22,36 @@ export const HomeScreen = ({navigation}) => {
         })();
     }, []);
 
-    if(location) return <Container>
-        <Title>SAVEARTH</Title>
-        <MapView
-            provider={PROVIDER_GOOGLE}
-            showsUserLocation={true}
-            loadingEnabled
-            showsMyLocationButton={true}
-            initialRegion={{
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-            }}
-            style={styles.map}
-            followUserLocation={true}
-        >
-        </MapView>
-        {plogging?
-            <HomeButton title="플로깅 종료하기" onPress={()=>setPlogging(false)}/>
-            :
-            <HomeButton title="플로깅 시작하기" onPress={()=>setPlogging(true)}/>
-        }
-    </Container>
+    if(location) return <Wrapper>
+        <Container>
+            <Title>SAVEARTH</Title>
+            <MapView
+                provider={PROVIDER_GOOGLE}
+                showsUserLocation={true}
+                loadingEnabled
+                showsMyLocationButton={true}
+                initialRegion={{
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                    latitudeDelta: 0.02, longitudeDelta: 0.01,
+                }}
+                style={styles.map}
+                followUserLocation={true}
+            >
+            </MapView>
+            {plogging?
+                <HomeButton title="플로깅 종료하기" onPress={()=>setPlogging(false)}/>
+                :
+                <HomeButton title="플로깅 시작하기" onPress={()=>setPlogging(true)}/>
+            }
+        </Container>
+    </Wrapper>
 }
-
+export const Wrapper = styled.SafeAreaView`
+  background: #fff;
+  width: 100%;
+  height: 100%;
+`
 const Container = styled.SafeAreaView`
   margin: 0 30px;
 `
@@ -60,7 +64,7 @@ const Title = styled.Text`
 const styles = StyleSheet.create({
     map: {
         width: Dimensions.get('window').width - 60,
-        height: Dimensions.get('window').height - 300,
+        height: Dimensions.get('window').height - 280,
         marginBottom: 20,
     },
 });

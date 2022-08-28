@@ -10,10 +10,10 @@ function LoginInput({name, value, setValue, placeholder, secureTextEntry}){
                 value={value}
                 secureTextEntry={secureTextEntry}
                 onChangeText={setValue}
-                ></TextInput>
+            />
             {secureTextEntry?<Text style={styles.message}>제약조건</Text>:null}
         </View>
-        
+
     );
 }
 export default LoginInput;

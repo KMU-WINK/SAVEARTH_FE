@@ -4,6 +4,7 @@ import {StyleSheet, Dimensions} from 'react-native';
 import MapView,{PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import styled from 'styled-components/native';
 import {BottomModal} from "../components/MapScreen/BottomModal";
+import {Wrapper} from "./HomeScreen";
 
 export const MapScreen = ({navigation}) => {
     const [location, setLocation] = useState(null);
@@ -31,8 +32,8 @@ export const MapScreen = ({navigation}) => {
         // setIsMarker(false);
     };
 
-
-    if (location) return <Container>
+    if (location) return <Wrapper>
+        <Container>
         <Title>지도</Title>
             <MapView
                 provider={PROVIDER_GOOGLE}
@@ -40,10 +41,8 @@ export const MapScreen = ({navigation}) => {
                 loadingEnabled
                 showsMyLocationButton={true}
                 initialRegion={{
-                    latitude: location.coords.latitude,
-                    longitude: location.coords.longitude,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
+                    latitude: location.coords.latitude, longitude: location.coords.longitude,
+                    latitudeDelta: 0.02, longitudeDelta: 0.01,
                 }}
                 style={styles.map}
                 followUserLocation={true}
@@ -90,14 +89,11 @@ export const MapScreen = ({navigation}) => {
                     }}
                 />
             </MapView>
-            <BottomModal isModalVisible={isModalVisible}
-                         toggleModal={()=>toggleModal()}
-                         type={modalType} />
         </Container>
+    </Wrapper>
 }
 
-
-const Container = styled.SafeAreaView`
+const Container = styled.View`
   margin: 0 30px;
 `
 const Title = styled.Text`
@@ -114,6 +110,6 @@ const styles = StyleSheet.create({
     },
     map: {
         width: Dimensions.get('window').width - 60,
-        height: Dimensions.get('window').height - 220,
+        height: Dimensions.get('window').height - 210,
     },
 });

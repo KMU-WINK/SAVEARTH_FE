@@ -1,30 +1,13 @@
 import {Dimensions, StyleSheet} from "react-native";
 import Modal from "react-native-modal";
 import styled from 'styled-components/native';
-import {AddTrashModal} from "./AddTrashModal";
-import {AddTrashCanModal} from "./AddTrashCanModal";
-import {DelTrashModal} from "./DelTrashModal";
-import {DelTrashCanModal} from "./DelTrashCanModal";
 
 export const BottomModal = ({isModalVisible, type, toggleModal}) => {
-    const SelectModal = (type) => {
-        switch (type.type) {
-            case 1:
-                return <AddTrashCanModal/>
-            case 2:
-                return <DelTrashModal/>
-            case 3:
-                return <DelTrashCanModal/>
-            default:
-                return <AddTrashModal/>
-        }
-    }
     return <Modal
             onBackdropPress={()=>toggleModal()}
             isVisible={isModalVisible}
             style={styles.bottomModal}
         >
-        <SelectModal type={type}/>
     </Modal>
 }
 
