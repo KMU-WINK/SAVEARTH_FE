@@ -37,7 +37,11 @@ export const LoginScreen=({navigation})=>{
               <Text style={styles.signUpText}>아직 회원이 아니신가요?</Text>
               <Pressable onPress={()=>navigation.navigate('SignUp')}><Text style={[styles.signUpText, styles.signUpTextLink]}> 회원가입</Text></Pressable>
             </View>
-          <BottomButton style={styles.loginButton } text={"로그인"} pressHandler={()=>navigation.navigate('TabNav')}/>
+            <BottomButton
+              style={styles.loginButton }
+              text={"로그인"}
+              pressHandler={()=>navigation.navigate('TabNav')}
+              buttonControl={id&&pw}/>
         </SafeAreaView>
     );
   }
