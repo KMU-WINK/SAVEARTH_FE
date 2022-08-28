@@ -28,7 +28,6 @@ export const MapScreen = ({navigation}) => {
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
-        // setIsMarker(false);
     };
 
 
