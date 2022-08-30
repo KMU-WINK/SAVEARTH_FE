@@ -3,9 +3,8 @@ import * as Location from 'expo-location';
 import {StyleSheet, Dimensions} from 'react-native';
 import MapView,{PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import styled from 'styled-components/native';
-import {BottomModal} from "../components/MapScreen/BottomModal";
 import {Wrapper} from "./HomeScreen";
-
+import {ShowModal} from "../components/MapScreen/ShowModal";
 export const MapScreen = () => {
     const [location, setLocation] = useState({});
     const [modalType, setModalType] = useState(0);
@@ -33,7 +32,6 @@ export const MapScreen = () => {
     };
 
     if (location) {
-        console.log("map",location);
         return <Wrapper>
             <Container>
                 <Title>지도</Title>
@@ -50,7 +48,7 @@ export const MapScreen = () => {
                         console.log(e.nativeEvent.coordinate);
                         if (!isMarker) setModalType(0);
                         setModalVisible(!isModalVisible);
-                        // console.log(modalType);
+                        console.log(isModalVisible)
                         // const newTrashLocation=e.nativeEvent.coordinate;
                         // const trashLocations =this.state.trashLocations; //기존 쓰레기통 위치들
                         // this.setState({trashLocations:[...trashLocations,newTrashLocation]})
@@ -90,6 +88,7 @@ export const MapScreen = () => {
                     />
                 </MapView>
             </Container>
+            <ShowModal isModalVisible={isModalVisible} modalType={modalType} toggleModal={toggleModal}/>
         </Wrapper>
     }
 }
