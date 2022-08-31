@@ -7,8 +7,9 @@ import {Wrapper} from "./HomeScreen";
 import {ShowModal} from "../components/MapScreen/ShowModal";
 export const MapScreen = () => {
     const [location, setLocation] = useState({});
-    const [modalType, setModalType] = useState(0);
+    const [modalType, setModalType] = useState(null);
     const [isMarker, setIsMarker] = useState(false);
+    const [isMap, setIsMap] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -28,7 +29,7 @@ export const MapScreen = () => {
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
-        // setIsMarker(false);
+        setIsMarker(!isMarker);
     };
 
     if (location) {
@@ -45,8 +46,10 @@ export const MapScreen = () => {
                     onRegionChangeComplete={reg => console.log("지역", reg)}
                     followUserLocation={true}
                     onPress={(e) => {
+                        console.log("click");
                         console.log(e.nativeEvent.coordinate);
                         if (!isMarker) setModalType(0);
+                        // else setIsMarker(false)
                         setModalVisible(!isModalVisible);
                         console.log(isModalVisible)
                         // const newTrashLocation=e.nativeEvent.coordinate;
@@ -66,7 +69,7 @@ export const MapScreen = () => {
                         description={'쓰레기 위치'}
                         onPress={(e) => {
                             setModalType(2);
-                            setIsMarker(true);
+                            setIsMarker(!isMarker);
                             setModalVisible(!isModalVisible);
                         }}
                     />
@@ -82,7 +85,7 @@ export const MapScreen = () => {
                         description={'쓰레기통 위치'}
                         onPress={(e) => {
                             setModalType(3);
-                            setIsMarker(true);
+                            setIsMarker(!isMarker);
                             setModalVisible(!isModalVisible);
                         }}
                     />
