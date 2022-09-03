@@ -2,12 +2,13 @@ import {Dimensions, StyleSheet} from "react-native";
 import Modal from "react-native-modal";
 import styled from 'styled-components/native';
 
-export const BottomModal = ({isModalVisible, type, toggleModal}) => {
+export const BottomModal = ({isModalVisible, children, toggleModal}) => {
     return <Modal
             onBackdropPress={()=>toggleModal()}
             isVisible={isModalVisible}
             style={styles.bottomModal}
         >
+        {children}
     </Modal>
 }
 

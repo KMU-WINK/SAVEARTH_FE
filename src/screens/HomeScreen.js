@@ -2,50 +2,78 @@ import * as React from 'react';
 import styled from 'styled-components/native';
 import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
 import * as Location from "expo-location";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Dimensions, StyleSheet} from "react-native";
 import {HomeButton} from "../components/HomeScreen/HomeButton";
+import {StatusView} from "../components/HomeScreen/StatusView";
 
 export const HomeScreen = () => {
-    const [location, setLocation] = useState(null);
-    const [plogging, setPlogging] = useState(false);
+    const [location, setLocation] = useState({});
+    const [isStart, setIsStart] = useState(false);
+    const [status, setStatus] = useState({time: "0M", distance: "0KM"})
+    const [timer, setTimer] = useState(0);
+    const increment = useRef(null);
 
     useEffect(() => {
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
-            if (status !== 'granted') {
-                setErrorMsg('Permission to access location was denied');
-                return;
-            }
-            let location = await Location.getCurrentPositionAsync({});
-            setLocation(location);
+            if (status !== 'granted') return;
+            let current = await Location.getCurrentPositionAsync({});
+            setLocation({
+                latitude: current.coords.latitude,
+                longitude: current.coords.longitude,
+                latitudeDelta: 0.01913125548428951,
+                longitudeDelta: 0.014162063598647023,
+            });
         })();
     }, []);
 
-    if(location) return <Wrapper>
-        <Container>
-            <Title>SAVEARTH</Title>
-            <MapView
-                provider={PROVIDER_GOOGLE}
-                showsUserLocation={true}
-                loadingEnabled
-                showsMyLocationButton={true}
-                initialRegion={{
-                    latitude: location.coords.latitude,
-                    longitude: location.coords.longitude,
-                    latitudeDelta: 0.02, longitudeDelta: 0.01,
-                }}
-                style={styles.map}
-                followUserLocation={true}
-            >
-            </MapView>
-            {plogging?
-                <HomeButton title="플로깅 종료하기" onPress={()=>setPlogging(false)}/>
-                :
-                <HomeButton title="플로깅 시작하기" onPress={()=>setPlogging(true)}/>
-            }
-        </Container>
-    </Wrapper>
+    const onStartPress = () => {
+        setIsStart(!isStart);
+        if (!isStart) {
+            increment.current = setInterval(() => {
+                setTimer((timer) => timer + 1)
+            }, 1000);
+        }
+        else clearInterval((increment.current));
+    }
+
+    const onStopPress = () => {
+        clearInterval(increment.current)
+        setIsStart(false)
+        setTimer(0)
+    }
+
+    const formatTime = () => {
+        const getSeconds = `0${(timer % 60)}`.slice(-2)
+        const minutes = `${Math.floor(timer / 60)}`
+        const getMinutes = `0${minutes % 60}`.slice(-2)
+        const getHours = `0${Math.floor(timer / 3600)}`.slice(-2)
+        if (getHours === '00') return `${getMinutes}M ${getSeconds}S`
+        return `${getHours}H ${getMinutes}M`
+    }
+
+    if(location) {
+        return <Wrapper>
+            <Container>
+                <Title>SAVEARTH</Title>
+                <MapView
+                    provider={PROVIDER_GOOGLE}
+                    showsUserLocation={true}
+                    loadingEnabled
+                    showsMyLocationButton={true}
+                    initialRegion={location}
+                    style={styles.map}
+                    followUserLocation={true}
+                />
+                {isStart && <StatusView time={formatTime()} distance={status.distance}/>}
+                <HomeButton
+                    title={isStart?"플로깅 종료하기":"플로깅 시작하기"}
+                    onPress={isStart?onStopPress:onStartPress}
+                />
+            </Container>
+        </Wrapper>
+    }
 }
 export const Wrapper = styled.SafeAreaView`
   background: #fff;
@@ -66,5 +94,6 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width - 60,
         height: Dimensions.get('window').height - 280,
         marginBottom: 20,
+        position: "relative",
     },
 });
