@@ -7,8 +7,8 @@ export const ShowModal = ({isModalVisible, modalType, toggleModal}) => {
     const SelectModal = () => {
         switch (modalType) {
             case 0: return <AddTrashModal/>
-            case 2: return <DelTrashModal/>
-            case 3: return <DelTrashCanModal/>
+            case 1: return <DelTrashModal/>
+            case 2: return <DelTrashCanModal/>
         }
     }
 
