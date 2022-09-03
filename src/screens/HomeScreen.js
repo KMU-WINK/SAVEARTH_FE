@@ -1,20 +1,23 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
+import MapView, {Polyline, PROVIDER_GOOGLE} from "react-native-maps";
 import * as Location from "expo-location";
 import {useEffect, useRef, useState} from "react";
 import {Dimensions, StyleSheet} from "react-native";
 import {HomeButton} from "../components/HomeScreen/HomeButton";
 import {StatusView} from "../components/HomeScreen/StatusView";
+const haversine = require('haversine')
 
 export const HomeScreen = () => {
     const [location, setLocation] = useState({});
     const [isStart, setIsStart] = useState(false);
-    const [status, setStatus] = useState({time: "0M", distance: "0KM"})
+    const [distance, setDistance] = useState(0);
     const [timer, setTimer] = useState(0);
+    const [route, setRoute] = useState([]);
     const increment = useRef(null);
 
     useEffect(() => {
+        calcDistance();
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') return;
@@ -26,7 +29,7 @@ export const HomeScreen = () => {
                 longitudeDelta: 0.014162063598647023,
             });
         })();
-    }, []);
+    }, [isStart, route]);
 
     const onStartPress = () => {
         setIsStart(!isStart);
@@ -53,6 +56,16 @@ export const HomeScreen = () => {
         return `${getHours}H ${getMinutes}M`
     }
 
+    const calcDistance = () => {
+        if (route.length < 2) return;
+        const [...routeIndex] = [...Array(route.length - 2).keys()];
+        let calc =  0;
+        routeIndex.map((idx)=>{
+            calc += haversine(route[idx], route[idx + 1]) || 0;
+        })
+        setDistance(calc.toFixed(1));
+    };
+
     if(location) {
         return <Wrapper>
             <Container>
@@ -65,8 +78,11 @@ export const HomeScreen = () => {
                     initialRegion={location}
                     style={styles.map}
                     followUserLocation={true}
-                />
-                {isStart && <StatusView time={formatTime()} distance={status.distance}/>}
+                    onPress={(e)=>setRoute([...route, e.nativeEvent.coordinate])}
+                >
+                    {isStart && <Polyline coordinates={route} strokeWidth={5}/>}
+                </MapView>
+                {isStart && <StatusView time={formatTime()} distance={distance+"KM"}/>}
                 <HomeButton
                     title={isStart?"플로깅 종료하기":"플로깅 시작하기"}
                     onPress={isStart?onStopPress:onStartPress}
@@ -84,7 +100,7 @@ const Container = styled.SafeAreaView`
   margin: 0 30px;
 `
 const Title = styled.Text`
-  font-family: 'NotoSansKR_900Black';
+  font-family: NotoSansKR_900Black;
   font-size: 34px;
   margin-bottom: 20px;
   color: #218EF2;
