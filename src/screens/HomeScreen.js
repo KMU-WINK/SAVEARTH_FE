@@ -17,7 +17,6 @@ export const HomeScreen = () => {
     const increment = useRef(null);
 
     useEffect(() => {
-        calcDistance();
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') return;
@@ -29,7 +28,21 @@ export const HomeScreen = () => {
                 longitudeDelta: 0.014162063598647023,
             });
         })();
-    }, [isStart, route]);
+    }, []);
+
+    // useEffect(() => {
+    //     if (!isStart) return;
+    //     setInterval(() => {
+    //         // console.log(route.length);
+    //         Location.watchPositionAsync({ accuracy: Location.Accuracy.Balanced }, position => {
+    //             const currentLat = position.coords.latitude;
+    //             const currentLon = position.coords.longitude;
+    //             setRoute([...route, {latitude: currentLat, longitude: currentLon}]);
+    //         });
+    //     }, 5000);
+    //     calcDistance();
+    // }, [route]);
+
 
     const onStartPress = () => {
         setIsStart(!isStart);
@@ -66,7 +79,9 @@ export const HomeScreen = () => {
         setDistance(calc.toFixed(1));
     };
 
-    if(location) {
+    console.log("object" === typeof location);
+    if(location !== {}) {
+        console.log(location);
         return <Wrapper>
             <Container>
                 <Title>SAVEARTH</Title>
