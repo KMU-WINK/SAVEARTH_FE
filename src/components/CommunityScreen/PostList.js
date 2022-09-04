@@ -34,7 +34,11 @@ export const PostList = () => {
     // )
     return <View style={styles.record}>
         <PostComponent/>
-        <CommentList/>
+        <PostComponent/>
+        <PostComponent/>
+        <PostComponent/>
+        <PostComponent/>
+        {/*<CommentList/>*/}
     </View>
 
 }

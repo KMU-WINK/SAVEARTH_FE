@@ -1,16 +1,19 @@
 import {LikeButton} from "./LikeButton";
 import {CommentButton} from "./CommentButton";
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, Pressable, View} from 'react-native';
 import {useState} from "react";
 import {CommentComponent} from "./CommentComponent";
 import {DelPost} from "./DelPost";
-
+import 'react-native-gesture-handler';
 
 export const PostComponent = ({navigation}) => {
     const [like, setLike] = useState(false);
     const [comment, setComment] = useState(false);
     const [clicked, setClicked] = useState(false);
-    return <View style={styles.postBox} >
+
+    return <Pressable style={styles.postBox} onPress={()=> {
+                navigation.navigate('Comment');
+            }}>
         <View>
             <View style={styles.upperBox}>
                 <View style={styles.del}>
@@ -36,7 +39,7 @@ export const PostComponent = ({navigation}) => {
         {/*        :*/}
         {/*        <Text style={styles.title}>아니다</Text>*/}
         {/*}*/}
-    </View>
+    </Pressable>
 }
 
 const styles = StyleSheet.create({
