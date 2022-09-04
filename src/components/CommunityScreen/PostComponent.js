@@ -11,9 +11,11 @@ export const PostComponent = ({navigation}) => {
     const [comment, setComment] = useState(false);
     const [clicked, setClicked] = useState(false);
 
-    return <Pressable style={styles.postBox} onPress={()=> {
-                navigation.navigate('Comment');
-            }}>
+    const onPressEvent = () => {
+        navigation.navigate('CommunityComment')
+    }
+
+    return <Pressable style={styles.postBox} onPress={onPressEvent}>
         <View>
             <View style={styles.upperBox}>
                 <View style={styles.del}>

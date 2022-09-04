@@ -1,5 +1,5 @@
 import {PostComponent} from "./PostComponent";
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {CommentList} from "./CommentList"; // 게시글 상세 화면
 
 import {createStackNavigator, StackView} from '@react-navigation/stack';
@@ -22,22 +22,11 @@ import StackNav from "./StackNav"; //게시글과 상세 화면에 대한 네비
 // }
 
 // const Stack = createStackNavigator();
-export const PostList = () => {
-    // return ( // 게시글 눌렀을 때 상세 화면으로 넘기기
-    //     <NavigationContainer>
-    //         {/*<StackNav/>*/}
-    //         <Stack.Navigator>
-    //             <Stack.Screen name="post" component={home}/>
-    //             {/*<Stack.Screen name="comment" component={CommentComponent}/>*/}
-    //         </Stack.Navigator>
-    //     </NavigationContainer>
-    // )
+export const PostList = ({navigation}) => {
     return <View style={styles.record}>
-        <PostComponent/>
-        <PostComponent/>
-        <PostComponent/>
-        <PostComponent/>
-        <PostComponent/>
+        {[0, 1, 2, 3, 4].map(()=>{
+            return <PostComponent navigation={navigation}/>
+        })}
         {/*<CommentList/>*/}
     </View>
 
