@@ -11,7 +11,7 @@ export const SettingMenuScreen = ({navigation}) => {
             <Text style={styles.text}>설정</Text>
         </View>
         <SettingMenuButton text='닉네임 변경하기' pressHandler={()=>navigation.navigate('SettingNickname')}/>
-        <SettingMenuButton text='로그아웃'/>
+        <SettingMenuButton text='로그아웃' pressHandler={()=>navigation.navigate('Login')}/>
     </SafeAreaView>
     );
 }

@@ -1,6 +1,6 @@
 import { StyleSheet, TextInput, View, Text } from 'react-native';
 
-function LoginInput({name, value, setValue, placeholder, secureTextEntry}){
+function SettingNicknameInput({name, value, setValue, placeholder}){
     return(
         <View style={styles.container}>
             <Text style={styles.name}>{name}</Text>
@@ -8,19 +8,18 @@ function LoginInput({name, value, setValue, placeholder, secureTextEntry}){
                 style={styles.input}
                 placeholder={placeholder}
                 value={value}
-                secureTextEntry={secureTextEntry}
                 onChangeText={setValue}
-            />
-            {secureTextEntry?<Text style={styles.message}>제약조건</Text>:null}
+                ></TextInput>
         </View>
-
+        
     );
 }
-export default LoginInput;
+export default SettingNicknameInput;
 
 const styles = StyleSheet.create({
     container:{
-        marginBottom:20
+        marginBottom:16,
+        marginTop: 22
     },
     name:{
         textAlign: 'center',
@@ -39,10 +38,4 @@ const styles = StyleSheet.create({
         fontSize:17,
         paddingHorizontal:24
     },
-    message:{
-        textAlign:'center',
-        marginTop:10,
-        fontSize: 12,
-        color: '#E0E0E0'
-    }
   });

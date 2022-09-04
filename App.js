@@ -7,15 +7,12 @@ import {useFonts,
         NotoSansKR_700Bold, NotoSansKR_900Black} from '@expo-google-fonts/noto-sans-kr';
 
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import {LoginScreen} from "./src/screens/LoginScreen";
+import {SignUpScreen} from "./src/screens/SignUpScreen";
+import {MainScreen} from "./src/screens/MainScreen";
 
-import {HomeScreen} from "./src/screens/HomeScreen";
-import {MapScreen} from "./src/screens/MapScreen"
-import {RecordScreen} from "./src/screens/RecordScreen";
-import {CommunityScreen} from "./src/screens/CommunityScreen";
-import {SettingScreen} from "./src/screens/SettingScreen";
-
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -26,13 +23,11 @@ export default function App() {
   if (!fontsLoaded) return null;
   return <SafeAreaProvider>
     <NavigationContainer>
-      <Tab.Navigator screenOptions={{headerShown: false}}>
-        <Tab.Screen name="Home" component={HomeScreen}/>
-        <Tab.Screen name="Map" component={MapScreen}/>
-        <Tab.Screen name="Record" component={RecordScreen}/>
-        <Tab.Screen name="Community" component={CommunityScreen}/>
-        <Tab.Screen name="Setting" component={SettingScreen}/>
-      </Tab.Navigator>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+            <Stack.Screen name="Login" component={LoginScreen}/>
+            <Stack.Screen name="SignUp" component={SignUpScreen}/>
+            <Stack.Screen name="MainScreen" component={MainScreen}/>
+        </Stack.Navigator>
     </NavigationContainer>
   </SafeAreaProvider>
 }

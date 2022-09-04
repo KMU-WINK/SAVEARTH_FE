@@ -59,9 +59,10 @@ export const SignUpScreen=({navigation})=> {
                 leftValue={"남"} rightValue={"여"}
                 setValue={GenderHandler}/>
           </ScrollView>
-        <BottomButton
-          text={"완료"} 
-          pressHandler={pressHandler}/>
+          <BottomButton
+            text={"완료"}
+            buttonControl={signUpId&& signUpPw&& signUpName&& signUpYear&& signUpMonth&& signUpDay} 
+            pressHandler={pressHandler}/>
       </SafeAreaView>
     );
   }
