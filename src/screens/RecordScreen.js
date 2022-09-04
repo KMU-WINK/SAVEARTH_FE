@@ -4,7 +4,7 @@ import {RecordComponent} from  '../components/RecordScreen/recordComponent';
 import {RecordList} from "../components/RecordScreen/recordList";
 
 export const RecordScreen = ({navigation}) => {
-    return <SafeAreaView>
+    return <SafeAreaView style={styles.back}>
         <Text style={styles.title}>내 운동 정보</Text>
         <ScrollView>
             <RecordList/>
@@ -19,6 +19,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginLeft: '7.5%',
         marginTop: '5%',
-        marginBottom: '7%'
+        marginBottom: '7%',
     },
+    back: {
+        backgroundColor: 'white'
+    }
 })

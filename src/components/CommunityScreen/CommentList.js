@@ -1,39 +1,89 @@
-import {StyleSheet, Text, View} from "react-native";
+import {SafeAreaView, ScrollView, StyleSheet, Text, View} from "react-native";
 import {LikeButton} from "./LikeButton";
 import {useState} from "react";
 import {CommentComponent} from "./CommentComponent";
+import BackBar from "./BackBar";
+import CommentInput from "./CommentInput";
+import {CommentButton} from "./CommentButton";
 
-export const CommentList = () => {
+export const CommentList = ({navigation}) => {
     const [like, setLike] = useState(false);
-    return <View style={styles.postBox}>
-        <View style={styles.upperBox}>
-            <Text style={styles.title}>게시글 제목</Text>
-            <Text style={styles.region}>서울시</Text>
-            <Text style={styles.content}>내용내용내용내용</Text>
-        </View>
-        <View style={styles.downBox}>
-            {like?
-                <LikeButton title={"좋아요 취소하기"} onPress={()=>setLike(false)}/>
-                :
-                <LikeButton title={"좋아요"} onPress={()=>setLike(true)}/>
-            }
-        </View>
-        <CommentComponent/>
-    </View>
+    return <SafeAreaView style={{backgroundColor: 'white'}}>
+        <SafeAreaView style={styles.entire}>
+            <View style={styles.header}>
+                <BackBar pressHandler={()=>navigation.navigate('CommunityBoard')}/>
+                <Text style={styles.headerTitle}>커뮤니티</Text>
+                <BackBar none/>
+            </View>
+            <View style={styles.postBox}>
+                <ScrollView>
+                    <View style={styles.postContent}>
+                        <View style={styles.upperBox}>
+                            <Text style={styles.title}>게시글 제목</Text>
+                            <Text style={styles.region}>서울시</Text>
+                            <Text style={styles.content}>내용내용내용내용</Text>
+                        </View>
+                        <View style={styles.downBox}>
+                            {like?
+                                <LikeButton title={"좋아요 취소하기"} onPress={()=>setLike(false)}/>
+                                :
+                                <LikeButton title={"좋아요"} onPress={()=>setLike(true)}/>
+                            }
+
+                            <CommentButton title={"댓글"}/>
+                        </View>
+                    </View>
+
+                    <CommentComponent/>
+                    <CommentComponent/>
+                    <CommentComponent/>
+                    <CommentComponent/>
+                    <CommentComponent/>
+                    <CommentComponent/>
+                </ScrollView>
+            </View>
+            <CommentInput placeholder="댓글을 입력하세요."/>
+        </SafeAreaView>
+    </SafeAreaView>
 }
 
 
 const styles = StyleSheet.create({
+    entire: {
+        marginLeft: 30,
+        marginRight: 30,
+    },
     postBox: {
-        width: '85%',
-        height: '80%',
-        // height: '20',
+        height: '72%',
         borderWidth: 1,
         borderColor: 'black',
         borderRadius: '20px',
         borderStyle: 'solid',
-        marginBottom: '3%',
-        margin: '7%'
+        marginTop: 20,
+    },
+    postContent: {
+        borderBottomWidth : 1,
+        borderBottomColor: 'black',
+        borderStyle : 'solid',
+        marginBottom: '2%'
+        // backgroundColor: 'red'
+    },
+    header: {
+        marginTop: '3%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        textAlign: 'center',
+    },
+    headerTitle: {
+        color: 'black',
+        fontSize: '34',
+        fontWeight: 'bold',
+        display: 'flex',
+        marginLeft: '5%',
+        // marginTop: '5%',
+        // marginBottom: '7%'
     },
     title: {
         fontSize: '17',

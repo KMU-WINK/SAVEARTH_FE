@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         paddingLeft: '5%',
         paddingTop: '5%',
+        marginBottom: '2%'
     },
     nickname: {
         fontSize: 17,

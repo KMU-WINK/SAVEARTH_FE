@@ -1,5 +1,5 @@
 import {PostComponent} from "./PostComponent";
-import {StyleSheet, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {CommentList} from "./CommentList"; // 게시글 상세 화면
 
 import {createStackNavigator, StackView} from '@react-navigation/stack';
@@ -10,25 +10,15 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 
 import StackNav from "./StackNav"; //게시글과 상세 화면에 대한 네비게이션
 
-// const Tab = createBottomTabNavigator();
-
-// function home() { // 에러 해결을 위한 함수 (navigation nested error 뜸)
-//     return(
-//         <Tab.Navigator>
-//             <Tab.Screen name="post" component={PostComponent}/>
-//             <Tab.Screen name="com" component={CommentComponent}/>
-//         </Tab.Navigator>
-//     )
-// }
-
-// const Stack = createStackNavigator();
 export const PostList = ({navigation}) => {
-    return <View style={styles.record}>
+    return <SafeAreaView style={styles.record}>
+        
+        <Text style={styles.headerTitle}>커뮤니티</Text>
         {[0, 1, 2, 3, 4].map(()=>{
             return <PostComponent navigation={navigation}/>
         })}
         {/*<CommentList/>*/}
-    </View>
+    </SafeAreaView>
 
 }
 
@@ -39,13 +29,23 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         width: '100%',
-        height: '100%'
+        height: '100%',
+        backgroundColor: 'white'
     },
     select: {
         width: "10%",
         color: "red"
 
-    }
+    },
+    headerTitle: {
+        color: 'black',
+        fontSize: '34',
+        fontWeight: 'bold',
+        display: 'flex',
+        marginLeft: '5%',
+        marginTop: '5%',
+        marginBottom: '5%'
+    },
 });
 
 // dropdown

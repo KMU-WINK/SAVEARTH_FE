@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const CommunityDelBtn = ({title, onPress}) => {
+export const CommunityComBtn = ({title, onPress}) => {
     return <Button onPress={onPress}>
         <BtnText>{title}</BtnText>
     </Button>
