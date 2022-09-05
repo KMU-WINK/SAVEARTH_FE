@@ -1,4 +1,4 @@
-import { View, StyleSheet,SafeAreaView, Pressable, Text, Image } from "react-native";
+import { View, StyleSheet, Pressable, Text, Image } from "react-native";
 
 function SettingTopbar({text, pressHandler}){
     return (
@@ -9,6 +9,7 @@ function SettingTopbar({text, pressHandler}){
             <View style={styles.area}>
                 <Text style={styles.text}>{text}</Text>
             </View>
+            <Image style={styles.image} source={null}/>
         </View>
     )
 }
@@ -18,9 +19,6 @@ const styles = StyleSheet.create({
     container:{
         flexDirection:'row',
         alignItems: 'center',
-        width: 343,
-        height:41,
-        marginTop: 48
     },
     image:{
         width:36,
@@ -34,6 +32,5 @@ const styles = StyleSheet.create({
     text:{
         fontSize:34,
         fontFamily: 'NotoSansKR_700Bold',
-        fontWeight:'bold',
     },
 })

@@ -2,19 +2,15 @@ import {SafeAreaView, ScrollView, StyleSheet, Text, View} from "react-native";
 import {LikeButton} from "./LikeButton";
 import {useState} from "react";
 import {CommentComponent} from "./CommentComponent";
-import BackBar from "./BackBar";
 import CommentInput from "./CommentInput";
 import {CommentButton} from "./CommentButton";
+import SettingTopbar from "../SettingScreen/SettingTopbar";
 
 export const CommentList = ({navigation}) => {
     const [like, setLike] = useState(false);
     return <SafeAreaView style={{backgroundColor: 'white'}}>
         <SafeAreaView style={styles.entire}>
-            <View style={styles.header}>
-                <BackBar pressHandler={()=>navigation.navigate('CommunityBoard')}/>
-                <Text style={styles.headerTitle}>커뮤니티</Text>
-                <BackBar none/>
-            </View>
+            <SettingTopbar text="커뮤니티" pressHandler={()=>navigation.navigate('CommunityBoard')}/>
             <View style={styles.postBox}>
                 <ScrollView>
                     <View style={styles.postContent}>

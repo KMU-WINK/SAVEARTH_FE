@@ -1,10 +1,10 @@
 import {useState} from 'react';
 import {StyleSheet,View, SafeAreaView,Keyboard } from 'react-native';
-import CommunityTopBar from './CommunityTopBar';
 import CommunityTextInput from './CommunityTextInput';
 import CommunityTitleInput from './CommunityTitleInput';
 import CommunityButton from './CommunityButton';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import SettingTopbar from "../../SettingScreen/SettingTopbar";
 
 export const CommunityWritePostScreen = ({navigation}) => {
     const [title, setTitle] = useState("");
@@ -18,9 +18,7 @@ export const CommunityWritePostScreen = ({navigation}) => {
     return (
         <SafeAreaView style={styles.container}>
             <TouchableWithoutFeedback onPress={onBackPress}>
-                <CommunityTopBar
-                    text={"커뮤니티"}
-                    pressHandler={""}/>
+                <SettingTopbar text="커뮤니티" pressHandler={onBackPress}/>
                 <View style={styles.input}>
                     <CommunityTitleInput
                         value={title}

@@ -9,9 +9,9 @@ function SettingNicknameInput({name, value, setValue, placeholder}){
                 placeholder={placeholder}
                 value={value}
                 onChangeText={setValue}
-                ></TextInput>
+            />
         </View>
-        
+
     );
 }
 export default SettingNicknameInput;
