@@ -46,13 +46,11 @@ export const PostComponent = ({navigation}) => {
 
 const styles = StyleSheet.create({
     postBox: {
-        width: '85%',
-        // height: '20',
         borderWidth: 1,
         borderColor: 'black',
         borderRadius: '20px',
         borderStyle: 'solid',
-        marginBottom: '3%'
+        marginBottom: 20,
     },
     title: {
         fontSize: '17',

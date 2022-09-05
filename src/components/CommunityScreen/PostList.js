@@ -1,44 +1,30 @@
 import {PostComponent} from "./PostComponent";
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
 import 'react-native-gesture-handler';
+import {Container, Title} from "../../screens/MapScreen";
+import {Wrapper} from "../../screens/HomeScreen";
+import styled from "styled-components";
+import {ModalBtn} from "../MapScreen/ModalBtn";
 
 export const PostList = ({navigation}) => {
-    return <SafeAreaView style={styles.record}>
-
-        <Text style={styles.headerTitle}>커뮤니티</Text>
-        {[0, 1, 2, 3, 4].map((index)=>{
-            return <PostComponent key={`Community-post-${index}`} navigation={navigation}/>
-        })}
-    </SafeAreaView>
-
+    return <Wrapper>
+        <Container>
+            <TitleContainer>
+                <Title>커뮤니티</Title>
+                <ModalBtn full title="게시글 작성하기" w={110} h={40}/>
+            </TitleContainer>
+            {[0, 1, 2, 3, 4].map((index)=>{
+                return <PostComponent key={`Community-post-${index}`} navigation={navigation}/>
+            })}
+        </Container>
+    </Wrapper>
 }
 
-const styles = StyleSheet.create({
-    record: {
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'white'
-    },
-    select: {
-        width: "10%",
-        color: "red"
-
-    },
-    headerTitle: {
-        color: 'black',
-        fontSize: '34',
-        fontWeight: 'bold',
-        display: 'flex',
-        marginLeft: '5%',
-        marginTop: '5%',
-        marginBottom: '5%'
-    },
-});
-
+const TitleContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`
 // dropdown
 // import SelectDropdown from  'react-native-select-dropdown';
 {/*<SelectDropdown*/}
