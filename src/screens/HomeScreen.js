@@ -15,6 +15,8 @@ export const HomeScreen = () => {
     const [timer, setTimer] = useState(0);
     const [route, setRoute] = useState([]);
     const increment = useRef(null);
+    const realtime = useRef(null);
+
 
     useEffect(() => {
         (async () => {
@@ -30,34 +32,40 @@ export const HomeScreen = () => {
         })();
     }, []);
 
-    // useEffect(() => {
-    //     if (!isStart) return;
-    //     setInterval(() => {
-    //         // console.log(route.length);
-    //         Location.watchPositionAsync({ accuracy: Location.Accuracy.Balanced }, position => {
-    //             const currentLat = position.coords.latitude;
-    //             const currentLon = position.coords.longitude;
-    //             setRoute([...route, {latitude: currentLat, longitude: currentLon}]);
-    //         });
-    //     }, 5000);
-    //     calcDistance();
-    // }, [route]);
-
 
     const onStartPress = () => {
         setIsStart(!isStart);
-        if (!isStart) {
-            increment.current = setInterval(() => {
-                setTimer((timer) => timer + 1)
-            }, 1000);
-        }
-        else clearInterval((increment.current));
+        Location.watchPositionAsync({accuracy: Location.Accuracy.Balanced}, position => {
+            const currentLat = position.coords.latitude;
+            const currentLon = position.coords.longitude;
+            const current = {latitude: currentLat, longitude: currentLon};
+            setRoute(route => {
+                return [...route, current]
+            });
+        });
+        increment.current = setInterval(() => {
+            setTimer((timer) => timer + 1);
+        }, 1000);
+        realtime.current = setInterval(async() => {
+            await Location.watchPositionAsync({accuracy: Location.Accuracy.Balanced}, position => {
+                const currentLat = position.coords.latitude;
+                const currentLon = position.coords.longitude;
+                const current = {latitude: currentLat, longitude: currentLon};
+                setRoute(route => {
+                    const prevDistance = haversine(route[route.length-1], current) || 0;
+                    setDistance((distance+prevDistance).toFixed(1));
+                    return [...route, current]
+                });
+            });
+        }, 3000);
     }
 
     const onStopPress = () => {
-        clearInterval(increment.current)
-        setIsStart(false)
-        setTimer(0)
+        clearInterval(increment.current);
+        clearInterval(realtime.current);
+        setIsStart(false);
+        setTimer(0);
+        setRoute([]);
     }
 
     const formatTime = () => {
@@ -69,19 +77,7 @@ export const HomeScreen = () => {
         return `${getHours}H ${getMinutes}M`
     }
 
-    const calcDistance = () => {
-        if (route.length < 2) return;
-        const [...routeIndex] = [...Array(route.length - 2).keys()];
-        let calc =  0;
-        routeIndex.map((idx)=>{
-            calc += haversine(route[idx], route[idx + 1]) || 0;
-        })
-        setDistance(calc.toFixed(1));
-    };
-
-    console.log("object" === typeof location);
-    if(location !== {}) {
-        console.log(location);
+    if(location.latitude !== undefined) {
         return <Wrapper>
             <Container>
                 <Title>SAVEARTH</Title>
@@ -93,7 +89,9 @@ export const HomeScreen = () => {
                     initialRegion={location}
                     style={styles.map}
                     followUserLocation={true}
-                    onPress={(e)=>setRoute([...route, e.nativeEvent.coordinate])}
+                    onPress={(e)=> {
+                        setRoute([...route, e.nativeEvent.coordinate]);
+                    }}
                 >
                     {isStart && <Polyline coordinates={route} strokeWidth={5}/>}
                 </MapView>
