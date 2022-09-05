@@ -4,17 +4,20 @@ import {Container, Title} from "../../screens/MapScreen";
 import {Wrapper} from "../../screens/HomeScreen";
 import styled from "styled-components";
 import {ModalBtn} from "../MapScreen/ModalBtn";
+import {ScrollView} from "react-native";
 
 export const PostList = ({navigation}) => {
     return <Wrapper>
         <Container>
             <TitleContainer>
                 <Title>커뮤니티</Title>
-                <ModalBtn full title="게시글 작성하기" w={110} h={40}/>
+                <ModalBtn full title="게시글 작성하기" w={110} h={40} onPress={()=>navigation.navigate('CommunityPost')}/>
             </TitleContainer>
-            {[0, 1, 2, 3, 4].map((index)=>{
-                return <PostComponent key={`Community-post-${index}`} navigation={navigation}/>
-            })}
+            <ScrollView>
+                {[0, 1, 2, 3, 4].map((index)=>{
+                    return <PostComponent key={`Community-post-${index}`} navigation={navigation}/>
+                })}
+            </ScrollView>
         </Container>
     </Wrapper>
 }

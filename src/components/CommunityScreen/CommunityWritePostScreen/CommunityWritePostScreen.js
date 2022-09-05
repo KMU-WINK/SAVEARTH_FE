@@ -1,6 +1,5 @@
-import * as React from 'react';
 import {useState} from 'react';
-import {StyleSheet,View, SafeAreaView, Text,Keyboard } from 'react-native';
+import {StyleSheet,View, SafeAreaView,Keyboard } from 'react-native';
 import CommunityTopBar from './CommunityTopBar';
 import CommunityTextInput from './CommunityTextInput';
 import CommunityTitleInput from './CommunityTitleInput';
@@ -8,14 +7,17 @@ import CommunityButton from './CommunityButton';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 export const CommunityWritePostScreen = ({navigation}) => {
-
     const [title, setTitle] = useState("");
     const [text, setText] = useState("");
 
+    const onBackPress = () => {
+        Keyboard.dismiss();
+        navigation.navigate('CommunityBoard');
+    }
 
     return (
         <SafeAreaView style={styles.container}>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <TouchableWithoutFeedback onPress={onBackPress}>
                 <CommunityTopBar
                     text={"커뮤니티"}
                     pressHandler={""}/>
@@ -33,8 +35,8 @@ export const CommunityWritePostScreen = ({navigation}) => {
                         text={"작성 완료하기"}
                         pressHandler={""}/>
                 </View>
-            </TouchableWithoutFeedback> 
-        </SafeAreaView>   
+            </TouchableWithoutFeedback>
+        </SafeAreaView>
     );
 }
 
@@ -46,6 +48,6 @@ const styles=StyleSheet.create({
     },
     input:{
         width:344,
-        
+
     }
 })
