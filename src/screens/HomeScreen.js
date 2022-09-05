@@ -17,7 +17,6 @@ export const HomeScreen = () => {
     const increment = useRef(null);
     const realtime = useRef(null);
 
-
     useEffect(() => {
         (async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
