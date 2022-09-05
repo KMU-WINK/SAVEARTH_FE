@@ -59,7 +59,7 @@ export const MapScreen = () => {
                         image="https://user-images.githubusercontent.com/54919662/186675058-62988681-ae0c-4d03-aaa2-7ed19af31b97.png"
                         title={'쓰레기 위치'}
                         onPress={() => {
-                            setModalType(1);
+                            setModalType(2);
                         }}
                     />
                     <Marker
@@ -70,12 +70,15 @@ export const MapScreen = () => {
                         image="https://user-images.githubusercontent.com/54919662/186675229-b2e73f22-d989-4290-8204-0c38fa38ed88.png"
                         title={'쓰레기통 위치'}
                         onPress={() => {
-                            setModalType(2);
+                            setModalType(3);
                         }}
                     />
                 </MapView>
             </Container>
-            <ShowModal isModalVisible={isModalVisible} modalType={modalType} toggleModal={toggleModal}/>
+            <ShowModal isModalVisible={isModalVisible} modalType={modalType} toggleModal={toggleModal}
+                       onTrashSubPress={()=> setModalType(1)}
+                       onTrashCanSubPress={()=> setModalType(0)}
+            />
         </Wrapper>
     }
 }
