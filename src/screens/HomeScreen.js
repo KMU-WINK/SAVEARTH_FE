@@ -1,18 +1,22 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
-import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
+import MapView, {Polyline, PROVIDER_GOOGLE} from "react-native-maps";
 import * as Location from "expo-location";
 import {useEffect, useRef, useState} from "react";
 import {Dimensions, StyleSheet} from "react-native";
 import {HomeButton} from "../components/HomeScreen/HomeButton";
 import {StatusView} from "../components/HomeScreen/StatusView";
+const haversine = require('haversine')
 
 export const HomeScreen = () => {
     const [location, setLocation] = useState({});
     const [isStart, setIsStart] = useState(false);
-    const [status, setStatus] = useState({time: "0M", distance: "0KM"})
+    const [distance, setDistance] = useState(0);
     const [timer, setTimer] = useState(0);
+    const [route, setRoute] = useState([]);
     const increment = useRef(null);
+    const realtime = useRef(null);
+
 
     useEffect(() => {
         (async () => {
@@ -28,20 +32,40 @@ export const HomeScreen = () => {
         })();
     }, []);
 
+
     const onStartPress = () => {
         setIsStart(!isStart);
-        if (!isStart) {
-            increment.current = setInterval(() => {
-                setTimer((timer) => timer + 1)
-            }, 1000);
-        }
-        else clearInterval((increment.current));
+        Location.watchPositionAsync({accuracy: Location.Accuracy.Balanced}, position => {
+            const currentLat = position.coords.latitude;
+            const currentLon = position.coords.longitude;
+            const current = {latitude: currentLat, longitude: currentLon};
+            setRoute(route => {
+                return [...route, current]
+            });
+        });
+        increment.current = setInterval(() => {
+            setTimer((timer) => timer + 1);
+        }, 1000);
+        realtime.current = setInterval(async() => {
+            await Location.watchPositionAsync({accuracy: Location.Accuracy.Balanced}, position => {
+                const currentLat = position.coords.latitude;
+                const currentLon = position.coords.longitude;
+                const current = {latitude: currentLat, longitude: currentLon};
+                setRoute(route => {
+                    const prevDistance = haversine(route[route.length-1], current) || 0;
+                    setDistance((distance+prevDistance).toFixed(1));
+                    return [...route, current]
+                });
+            });
+        }, 3000);
     }
 
     const onStopPress = () => {
-        clearInterval(increment.current)
-        setIsStart(false)
-        setTimer(0)
+        clearInterval(increment.current);
+        clearInterval(realtime.current);
+        setIsStart(false);
+        setTimer(0);
+        setRoute([]);
     }
 
     const formatTime = () => {
@@ -53,7 +77,7 @@ export const HomeScreen = () => {
         return `${getHours}H ${getMinutes}M`
     }
 
-    if(location) {
+    if(location.latitude !== undefined) {
         return <Wrapper>
             <Container>
                 <Title>SAVEARTH</Title>
@@ -65,8 +89,13 @@ export const HomeScreen = () => {
                     initialRegion={location}
                     style={styles.map}
                     followUserLocation={true}
-                />
-                {isStart && <StatusView time={formatTime()} distance={status.distance}/>}
+                    onPress={(e)=> {
+                        setRoute([...route, e.nativeEvent.coordinate]);
+                    }}
+                >
+                    {isStart && <Polyline coordinates={route} strokeWidth={5}/>}
+                </MapView>
+                {isStart && <StatusView time={formatTime()} distance={distance+"KM"}/>}
                 <HomeButton
                     title={isStart?"플로깅 종료하기":"플로깅 시작하기"}
                     onPress={isStart?onStopPress:onStartPress}
@@ -84,7 +113,7 @@ const Container = styled.SafeAreaView`
   margin: 0 30px;
 `
 const Title = styled.Text`
-  font-family: 'NotoSansKR_900Black';
+  font-family: NotoSansKR_900Black;
   font-size: 34px;
   margin-bottom: 20px;
   color: #218EF2;

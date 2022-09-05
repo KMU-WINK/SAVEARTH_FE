@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
-export const ModalBtn = ({title, full}) => {
-    return <Button full={full}>
+export const ModalBtn = ({title, full, onPress}) => {
+    return <Button full={full} onPress={onPress}>
         <BtnText full={full}>{title}</BtnText>
     </Button>
 }
