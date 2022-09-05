@@ -11,6 +11,7 @@ function CommentInput({name, value, setValue, placeholder}){
                     placeholder={placeholder}
                     value={value}
                     onChangeText={setValue}
+                    multiline={true}
                 >
                 </TextInput>
                 <CommunityComBtn title="v" onPress={()=>console.log("지료완롱")}/>
@@ -24,7 +25,6 @@ export default CommentInput;
 const styles = StyleSheet.create({
     container:{
         height: 150,
-        // margin: '0 30',
     },
     name:{
         textAlign: 'center',
@@ -35,17 +35,19 @@ const styles = StyleSheet.create({
     inputWrapper: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: "space-between",
+        // justifyContent: "space-between",
         alignItems: "center",
         borderRadius: 15,
         borderWidth: 1,
         borderStyle: 'solid',
-        height: '30%',
+        height: '40%',
+        width: '100%',
     },
     input:{
-        height: '30%',
+        width: '90%',
         fontFamily: 'NotoSansKR_400Regular',
         fontSize:15,
-        paddingHorizontal: 25,
+        paddingLeft: 16,
+        paddingRight: 14,
     },
 });

@@ -1,23 +1,14 @@
 import {PostComponent} from "./PostComponent";
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import {CommentList} from "./CommentList"; // 게시글 상세 화면
-
-import {createStackNavigator, StackView} from '@react-navigation/stack';
+import {SafeAreaView, StyleSheet, Text} from 'react-native';
 import 'react-native-gesture-handler';
-import StackNavigator from "@react-navigation/stack/src/navigators/createStackNavigator";
-import {NavigationContainer} from "@react-navigation/native";
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-
-import StackNav from "./StackNav"; //게시글과 상세 화면에 대한 네비게이션
 
 export const PostList = ({navigation}) => {
     return <SafeAreaView style={styles.record}>
-        
+
         <Text style={styles.headerTitle}>커뮤니티</Text>
-        {[0, 1, 2, 3, 4].map(()=>{
-            return <PostComponent navigation={navigation}/>
+        {[0, 1, 2, 3, 4].map((index)=>{
+            return <PostComponent key={`Community-post-${index}`} navigation={navigation}/>
         })}
-        {/*<CommentList/>*/}
     </SafeAreaView>
 
 }
