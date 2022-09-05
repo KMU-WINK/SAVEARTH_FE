@@ -28,7 +28,7 @@ export const MapScreen = () => {
         setModalVisible(!isModalVisible);
     };
 
-    if (location.latitude !== undefined결) {
+    if (location.latitude !== undefined) {
         return <Wrapper>
             <Container>
                 <Title>지도</Title>
