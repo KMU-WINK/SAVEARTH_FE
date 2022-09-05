@@ -18,18 +18,17 @@ export const MapScreen = () => {
             setLocation({
                 latitude: current.coords.latitude,
                 longitude: current.coords.longitude,
-                latitudeDelta: 0.02150291932775872,
+                latitudeDelta: 0.01913125548428951,
                 longitudeDelta: 0.014162063598647023,
             });
         })();
     }, []);
 
-
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
 
-    if (location) {
+    if (location.latitude !== undefined) {
         return <Wrapper>
             <Container>
                 <Title>지도</Title>
@@ -40,9 +39,9 @@ export const MapScreen = () => {
                     showsMyLocationButton={true}
                     initialRegion={location}
                     style={styles.map}
-                    // onRegionChangeComplete={reg => console.log("지역", reg)}
                     followUserLocation={true}
                     onPress={(e) => {
+                        console.log( e.nativeEvent.coordinate);
                         if (e.nativeEvent.action !== 'marker-press') {
                             setModalType(0);
                         }
