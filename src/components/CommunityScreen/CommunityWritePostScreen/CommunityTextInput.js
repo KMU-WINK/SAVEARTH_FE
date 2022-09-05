@@ -1,4 +1,4 @@
-import { StyleSheet, TextInput, View, Text } from 'react-native';
+import { StyleSheet, TextInput } from 'react-native';
 
 function CommunityTextInput({ value, setValue, placeholder}){
     return(
@@ -19,12 +19,10 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         borderWidth: 1,
         borderStyle: 'solid',
-        height: "60%",
+        height: "65%",
         fontFamily: 'NotoSansKR_400Regular',
         fontSize:17,
         paddingHorizontal:20,
         paddingTop:8
-
-
     }
   });

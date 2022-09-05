@@ -1,29 +1,30 @@
 import { View, StyleSheet,SafeAreaView, Pressable, Text, Image } from "react-native";
 
-function CommunityTopBar({text, pressHandler}){
+function BackBar({none, text, pressHandler}){
     return (
         <View style={styles.container}>
-            <Pressable onPress={pressHandler}>
-                <Image style={styles.image} source={require('./topbarArrow.png')}/>
-            </Pressable>
+            {!none && <Pressable onPress={pressHandler}>
+                <Image style={styles.image} source={require('../SettingScreen/topbarArrow.png')}/>
+            </Pressable>}
             <View style={styles.area}>
                 <Text style={styles.text}>{text}</Text>
             </View>
         </View>
     )
 }
-export default CommunityTopBar;
+export default BackBar;
 
 const styles = StyleSheet.create({
     container:{
         flexDirection:'row',
-        alignItems: 'center',
-        width: 343,
-        height:41,
+        alignItems: 'flex-start',
+        width: 36,
+        height:36,
     },
     image:{
         width:36,
         height:36,
+        // marginLeft: '3%'
     },
     area:{
         flex:1,

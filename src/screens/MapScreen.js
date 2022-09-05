@@ -83,10 +83,10 @@ export const MapScreen = () => {
     }
 }
 
-const Container = styled.View`
+export const Container = styled.View`
   margin: 0 30px;
 `
-const Title = styled.Text`
+export const Title = styled.Text`
   font-family: NotoSansKR_900Black;
   font-size: 34px;
   margin-bottom: 20px;

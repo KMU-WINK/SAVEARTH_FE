@@ -1,5 +1,4 @@
-// import {Dimensions} from "react-native";
-import {StyleSheet, SafeAreaView, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
 export const RecordComponent = () => {
     return <View style={styles.recordBox}>
@@ -26,13 +25,11 @@ export const RecordComponent = () => {
 
 const styles = StyleSheet.create({
     recordBox: {
-        width: '85%',
-        // height: '20',
         borderWidth: 1,
         borderColor: 'black',
         borderRadius: '20px',
         borderStyle: 'solid',
-        marginBottom: '3%'
+        marginBottom: 20,
     },
     recordDate: {
         fontSize: '17',

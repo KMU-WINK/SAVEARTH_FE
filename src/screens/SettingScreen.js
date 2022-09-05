@@ -1,4 +1,4 @@
-import * as React from 'react';
+ import * as React from 'react';
 import {SettingMenuScreen} from '../components/SettingScreen/SettingMenuScreen';
 import {SettingNicknameScreen} from '../components/SettingScreen/SettingNicknameScreen';
 import { createStackNavigator } from '@react-navigation/stack';

@@ -1,6 +1,6 @@
 import {StyleSheet, Text, Pressable } from 'react-native';
 
-function BottomButton({text, pressHandler, buttonControl}){
+function BottomButton({text, pressHandler}){
     return (
         <Pressable style={styles.button} onPress={pressHandler}>
             <Text style={styles.text}>
@@ -25,6 +25,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: 'NotoSansKR_700Bold',
         fontSize:15
-        
+
     }
 })
