@@ -10,10 +10,10 @@ function SignUpInput({name, value, setValue, placeholder, secureTextEntry}){
                 secureTextEntry={secureTextEntry}
                 onChangeText={setValue}
                 placeholder={placeholder}
-                ></TextInput>
+                />
             <Text style={styles.message}>조건</Text>
         </View>
-        
+
     );
 }
 export default SignUpInput;
@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         borderWidth: 1,
         borderStyle: 'solid',
-        width:343,
         height: 62,
         paddingHorizontal:24,
         fontFamily: 'NotoSansKR_400Regular',

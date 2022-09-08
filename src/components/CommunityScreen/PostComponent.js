@@ -2,14 +2,11 @@ import {LikeButton} from "./LikeButton";
 import {CommentButton} from "./CommentButton";
 import {StyleSheet, Text, Pressable, View} from 'react-native';
 import {useState} from "react";
-import {CommentComponent} from "./CommentComponent";
 import {DelPost} from "./DelPost";
 import 'react-native-gesture-handler';
 
-export const PostComponent = ({navigation}) => {
+export const PostComponent = ({navigation, content}) => {
     const [like, setLike] = useState(false);
-    const [comment, setComment] = useState(false);
-    const [clicked, setClicked] = useState(false);
 
     const onPressEvent = () => {
         navigation.navigate('CommunityComment')
@@ -19,19 +16,15 @@ export const PostComponent = ({navigation}) => {
         <View>
             <View style={styles.upperBox}>
                 <View style={styles.del}>
-                    <Text style={styles.title}>게시글 제목</Text>
+                    <Text style={styles.title}>{content.title}</Text>
                     <DelPost/>
                 </View>
-                <Text style={styles.region}>서울시</Text>
-                <Text style={styles.content}>내용내용내용내용</Text>
+                <Text style={styles.region}>{content.location}</Text>
+                <Text style={styles.content}>{content.content}</Text>
             </View>
             <View style={styles.downBox}>
-                {like?
-                    <LikeButton title={"좋아요 취소하기"} onPress={()=>setLike(false)}/>
-                    :
-                    <LikeButton title={"좋아요"} onPress={()=>setLike(true)}/>
-                }
-                <CommentButton title={"댓글"} onPress={() => navigation.navigate('CommentComponent')}/>
+                <LikeButton title={`좋아요 ${content.like_cnt}개`} like={like} onPress={()=>setLike(!like)}/>
+                <CommentButton title={"댓글"} onPress={onPressEvent}/>
 
             </View>
         </View>

@@ -29,7 +29,7 @@ export const Container = styled.View`
   padding: 40px 20px 50px;
 `
 export const ModalTitle = styled.Text`
-  font-family: 'NotoSansKR_700Bold';
+  font-family: NotoSansKR_700Bold;
   font-size: 34px;
   line-height: 41px;
   text-align: center;

@@ -5,10 +5,14 @@ import MapView,{PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import styled from 'styled-components/native';
 import {Wrapper} from "./HomeScreen";
 import {ShowModal} from "../components/MapScreen/ShowModal";
+import {getTrashCan} from "../axios/trashcan";
+
 export const MapScreen = () => {
     const [location, setLocation] = useState({});
     const [modalType, setModalType] = useState(null);
     const [isModalVisible, setModalVisible] = useState(false);
+    const [trash, setTrash] = useState([]);
+    const [trashCan, setTrashCan] = useState([]);
 
     useEffect(() => {
         (async () => {
@@ -23,6 +27,14 @@ export const MapScreen = () => {
             });
         })();
     }, []);
+
+    useEffect( () => {
+        async function fetchTrashCan() {
+            const result = await getTrashCan();
+            return result.data;
+        }
+        fetchTrashCan().then(r => setTrashCan(r));
+    },[]);
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
@@ -41,7 +53,7 @@ export const MapScreen = () => {
                     style={styles.map}
                     followUserLocation={true}
                     onPress={(e) => {
-                        console.log( e.nativeEvent.coordinate);
+                        console.log("loc",e.nativeEvent.coordinate);
                         if (e.nativeEvent.action !== 'marker-press') {
                             setModalType(0);
                         }
@@ -61,17 +73,17 @@ export const MapScreen = () => {
                             setModalType(2);
                         }}
                     />
-                    <Marker
-                        coordinate={{
-                            latitude: 37.787139,
-                            longitude: -122.405851,
-                        }}
-                        image="https://user-images.githubusercontent.com/54919662/186675229-b2e73f22-d989-4290-8204-0c38fa38ed88.png"
-                        title={'쓰레기통 위치'}
-                        onPress={() => {
-                            setModalType(3);
-                        }}
-                    />
+                    {trashCan?.map((res)=> {
+                        return <Marker
+                            key={`trashcan-${res.id}`}
+                            coordinate={{latitude:res.trashcan_x, longitude:res.trashcan_y}}
+                            image="https://user-images.githubusercontent.com/54919662/186675229-b2e73f22-d989-4290-8204-0c38fa38ed88.png"
+                            title={'쓰레기통 위치'}
+                            onPress={() => {
+                                setModalType(3);
+                            }}
+                        />
+                    })}
                 </MapView>
             </Container>
             <ShowModal isModalVisible={isModalVisible} modalType={modalType} toggleModal={toggleModal}
