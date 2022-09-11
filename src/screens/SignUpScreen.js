@@ -26,7 +26,7 @@ export const SignUpScreen=({navigation})=> {
   const pressHandler = async() => {
     const result = await signup({
       nickname: signUpId,
-      email: signUpId+'@'+signUpId+'com',
+      email: signUpId+'@'+signUpId+'.com',
       name: signUpName,
       password: signUpPw,
       birth_year: signUpYear,

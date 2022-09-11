@@ -15,6 +15,9 @@ export const signup = async (args) => {
         nickname, email, name, password,
         birth_year, birth_month, birth_day, gender
     } = args;
+    console.log(
+        nickname, email, name, password,
+        birth_year, birth_month, birth_day, gender);
     try {
         const response = await baseService.post('/user/signup/', {
             nickname, email, name, password,
