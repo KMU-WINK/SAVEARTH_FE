@@ -23,17 +23,15 @@ export const signup = async (args) => {
             nickname, email, name, password,
             birth_year, birth_month, birth_day, gender
         });
-        console.log(response);
-        console.log()
         return response.status;
     } catch (e) {
         console.log(e);
+        return e.message.slice(e.message.length - 3)
     }
 }
 
 export const login = async (args) => {
     const {username, password} = args;
-
     try {
         const response = await baseService.post('/user/login/',{
             username,
