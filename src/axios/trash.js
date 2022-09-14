@@ -1,8 +1,18 @@
-import {baseService} from "./user";
+import axios from "axios";
+import {getData} from "./asyncStorage";
+import {url} from "./user";
 
 export const getTrash = async () => {
+    const token = await getData('token');
     try {
-        return await baseService.get('/trash/');
+        return await axios.get(`${url}/trash/`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${token.Token}`
+                }
+            }
+        );
     } catch (e) {
         console.log(e.response)
         return e.response
@@ -10,12 +20,17 @@ export const getTrash = async () => {
 }
 
 export const addTrash = async (args) => {
-    const {trash_x, trash_y} = args;
-    console.log(args);
+    const token = await getData('token');
     try {
-        const response = await baseService.post('/trash/',{
-            trash_x, trash_y
-        })
+        const response = await axios.post(`${url}/trash/`,
+            args,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${token.Token}`
+                }
+            },
+        )
         return response.status;
     } catch (e) {
         console.log(e)
@@ -23,12 +38,20 @@ export const addTrash = async (args) => {
     }
 }
 
-export const delTrash = async (args) => {
-    const {trash_id} = args;
-    console.log(args);
+export const delTrash = async (trash_id) => {
+    const token = await getData('token');
     try {
-        return await baseService.delete(`/trash/${trash_id}`);
-    } catch (e) {
+        const result = await axios.delete(`${url}/trash/${trash_id}/`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${token.Token}`
+                }
+            }
+        );
+        return result.status;
+    }
+    catch (e) {
         console.log(e.response.status);
         return e.response.status;
     }

@@ -26,7 +26,7 @@ export const PostList = ({navigation}) => {
                 <ModalBtn full title="게시글 작성하기" w={110} h={40} onPress={()=>navigation.navigate('CommunityPost')}/>
             </TitleContainer>
             <ScrollView>
-                {board.map((post)=>{
+                {board?.map((post)=>{
                     return <PostComponent key={`Community-post-${post.id}`} content={post} navigation={navigation}/>
                 })}
             </ScrollView>
@@ -40,18 +40,3 @@ const TitleContainer = styled.View`
   justify-content: space-between;
   align-items: center;
 `
-// dropdown
-// import SelectDropdown from  'react-native-select-dropdown';
-{/*<SelectDropdown*/}
-{/*    style={styles.select}*/}
-{/*    data = {regions}*/}
-{/*    onSelect={(selectedItem, index) => {*/}
-{/*        console.log(selectedItem, index)*/}
-{/*    }}*/}
-{/*    buttonTextAfterSelection={(selectedItem, index) => {*/}
-{/*        return selectedItem*/}
-{/*    }}*/}
-{/*    rowTextForSelection={(item, index) => {*/}
-{/*    }}*/}
-{/*    defaultButtonText={"지역"}*/}
-{/*    // defaultValueByIndex={0}*/}

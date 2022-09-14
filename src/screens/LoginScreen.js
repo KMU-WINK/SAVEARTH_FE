@@ -1,4 +1,4 @@
-import { StyleSheet,SafeAreaView, Pressable, Text, View } from 'react-native';
+import {StyleSheet, SafeAreaView, Pressable, Text, View, ImageBackground} from 'react-native';
 import {useState} from 'react';
 import LoginInput from '../components/LoginScreen/LoginInput';
 import BottomButton from '../components/LoginScreen/BottomButton';
@@ -32,7 +32,9 @@ export const LoginScreen=({navigation})=>{
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.image}/>
+            {/*<View style={styles.imageWrapper}>*/}
+                <ImageBackground style={styles.imageWrapper} source={require('../components/LoginScreen/savearth_icon.jpeg')}/>
+            {/*</View>*/}
             <Text style={styles.title}>SAVEARTH</Text>
 
               <LoginInput
@@ -70,14 +72,15 @@ export const LoginScreen=({navigation})=>{
         justifyContent: 'flex-end'
 
     },
-    image:{
+    imageWrapper:{
       width:105,
       height:105,
-      borderColor: 'black',
-      borderWidth:2,
-      borderRadius: 20,
+      // borderColor: 'black',
+      // borderWidth:2,
+      // borderRadius: 20,
       marginBottom: 10,
-      marginTop: 134
+      marginTop: 134,
+
     },
     title:{
       fontWeight: 'bold',

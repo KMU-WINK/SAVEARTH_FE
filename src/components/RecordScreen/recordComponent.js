@@ -1,15 +1,18 @@
 import {StyleSheet, Text, View} from 'react-native';
+import Moment from 'moment';
 
-export const RecordComponent = ({startTime, endTime, distance, steps}) => {
+export const RecordComponent = ({datetime, time, distance, steps}) => {
+    Moment.locale('ko');
+
     return <View style={styles.recordBox}>
         <View style={styles.upperBox}>
-            <Text style={styles.recordDate}> {endTime} </Text>
-            <Text style={styles.recordTime}> {endTime} </Text>
+            <Text style={styles.recordDate}> {Moment(datetime).format('YY.MM.DD')} </Text>
+            <Text style={styles.recordTime}> {Moment(datetime).format('hh:mm')} </Text>
         </View>
         <View style={styles.downBox}>
             <View style={styles.recordInfoBox}>
                 <Text style={styles.recordTitle}>운동 시간</Text>
-                <Text style={styles.recordInfo}>{endTime-startTime}</Text>
+                <Text style={styles.recordInfo}>{time}</Text>
             </View>
             <View style={styles.recordInfoBox}>
                 <Text style={styles.recordTitle}>이동 거리</Text>
@@ -17,7 +20,7 @@ export const RecordComponent = ({startTime, endTime, distance, steps}) => {
             </View>
             <View style={styles.recordInfoBox}>
                 <Text style={styles.recordTitle}>걸음 수</Text>
-                <Text style={styles.recordInfo}>{steps}</Text>
+                <Text style={styles.recordInfo}>{steps? steps:'-'}</Text>
             </View>
         </View>
     </View>

@@ -1,7 +1,10 @@
 import axios from 'axios';
 import {storeData} from "./asyncStorage";
 
+export const url = 'http://127.0.0.1:8000';
+
 const baseURL = new URL('http://127.0.0.1:8000');
+
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 
@@ -9,7 +12,7 @@ export const baseService = axios.create({
     baseURL: baseURL.toString(),
     headers: {
         'Content-Type': 'application/json',
-        withCredentials: true,
+        withCredentials: true
     }
 })
 
@@ -41,6 +44,7 @@ export const login = async (args) => {
             password
         })
         await getUserInfo(response.data.Token);
+        await storeData('token', response.data);
         return response.status;
     } catch (e) {
         console.log(e)

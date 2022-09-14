@@ -10,17 +10,17 @@ export const getRecord = async (user_id) => {
 }
 
 export const addRecord = async (args) => {
-    // const {date, datetime, activeTime, distance, step} = args;
-    // try {
-    //     const response = await baseService.post('/',{
-    //         date, datetime, activeTime, distance, step
-    //     })
-    //     console.log(response);
-    //     return response.status;
-    // } catch (e) {
-    //     console.log(e)
-    //     return Number(e.message.slice(e.message.length - 3))
-    // }
+    const {date, datetime, activeTime, distance, step} = args;
+    try {
+        const response = await baseService.post('/',{
+            date, datetime, activeTime, distance, step
+        })
+        console.log(response);
+        return response.status;
+    } catch (e) {
+        console.log(e)
+        return Number(e.message.slice(e.message.length - 3))
+    }
 }
 export const delRecord = async (record_id) => {
     try {
