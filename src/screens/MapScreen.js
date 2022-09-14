@@ -51,8 +51,10 @@ export const MapScreen = () => {
             trash_x: loc.latitude,
             trash_y: loc.longitude,
         })
-        if (result === 201) console.log('쓰레기 마크 추가 성공');
-        else console.log('잠시후 다시 시도해주세요');
+        if (result === 201) alert('쓰레기 마크 추가 성공');
+        else {
+            alert('잠시후 다시 시도해주세요');
+        }
         toggleModal();
     }
     const onAddTrashCan = async (loc) => {
@@ -60,24 +62,24 @@ export const MapScreen = () => {
             trashcan_x: loc.latitude,
             trashcan_y: loc.longitude,
         })
-        if (result === 201) console.log('쓰레기통 마크 추가 성공');
-        else console.log('잠시후 다시 시도해주세요');
+        if (result === 201) alert('쓰레기통 마크 추가 성공');
+        else alert('잠시후 다시 시도해주세요');
         toggleModal();
     }
     const onDelTrash = async (id) => {
         const result = await delTrash({
             trash_id: id,
         })
-        if (result === 204) console.log('쓰레기 삭제 성공');
-        else console.log('잠시후 다시 시도해주세요');
+        if (result === 204) alert('쓰레기 삭제 성공');
+        else alert('잠시후 다시 시도해주세요');
         toggleModal();
     }
     const onDelTrashCan = async () => {
         const result = await delTrashCan({
             trashcan_id: id,
         })
-        if (result === 204) console.log('쓰레기통 삭제 성공');
-        else console.log('잠시후 다시 시도해주세요');
+        if (result === 204) alert('쓰레기통 삭제 성공');
+        else alert('잠시후 다시 시도해주세요');
         toggleModal();
     }
 

@@ -18,6 +18,7 @@ export const addTrash = async (args) => {
         })
         return response.status;
     } catch (e) {
+        console.log(e)
         return Number(e.message.slice(e.message.length - 3));
     }
 }

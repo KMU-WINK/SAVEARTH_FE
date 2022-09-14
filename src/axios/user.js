@@ -1,4 +1,6 @@
 import axios from 'axios';
+import {storeData} from "./asyncStorage";
+
 const baseURL = new URL('http://127.0.0.1:8000');
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
@@ -10,6 +12,7 @@ export const baseService = axios.create({
         withCredentials: true,
     }
 })
+
 export const signup = async (args) => {
     const {
         nickname, email, name, password,
@@ -37,10 +40,26 @@ export const login = async (args) => {
             username,
             password
         })
-        console.log(response);
+        await getUserInfo(response.data.Token);
         return response.status;
     } catch (e) {
         console.log(e)
         return Number(e.message.slice(e.message.length - 3))
+    }
+}
+
+export const getUserInfo = async(token) => {
+    try {
+        const result = await axios.get('http://127.0.0.1:8000/user/getuser/',
+        {headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`
+            }}
+        )
+        await storeData('userInfo', result.data[0].id);
+        return result;
+    } catch (e) {
+        console.log(e.response)
+        return e;
     }
 }

@@ -25,10 +25,9 @@ export const LoginScreen=({navigation})=>{
         })
         console.log(result);
         // 202 : 로그인 성공 , 403 : csrf 토큰 값 없음 , 400 : 아이디, 비밀번호 불일치
-        navigation.navigate('MainScreen');
-        // if (result === 202) navigation.navigate('MainScreen');
-        // else if (result === 400) setError("아이디 또는 비밀번호가 일치하지 않습니다.");
-        // else setError("예상치 못한 오류가 발생했습니다.\n잠시후 다시 시도해주세요.")
+        if (result === 202) navigation.navigate('MainScreen');
+        else if (result === 400) setError("아이디 또는 비밀번호가 일치하지 않습니다.");
+        else setError("예상치 못한 오류가 발생했습니다.\n잠시후 다시 시도해주세요.")
     }
 
     return (
