@@ -7,7 +7,7 @@ export const RecordComponent = ({datetime, time, distance, steps}) => {
     return <View style={styles.recordBox}>
         <View style={styles.upperBox}>
             <Text style={styles.recordDate}> {Moment(datetime).format('YY.MM.DD')} </Text>
-            <Text style={styles.recordTime}> {Moment(datetime).format('hh:mm')} </Text>
+            <Text style={styles.recordTime}> {Moment(datetime).format('HH:mm')} </Text>
         </View>
         <View style={styles.downBox}>
             <View style={styles.recordInfoBox}>

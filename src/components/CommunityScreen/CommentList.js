@@ -1,13 +1,56 @@
 import {SafeAreaView, ScrollView, StyleSheet, Text, View} from "react-native";
 import {LikeButton} from "./LikeButton";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {CommentComponent} from "./CommentComponent";
 import CommentInput from "./CommentInput";
 import {CommentButton} from "./CommentButton";
 import SettingTopbar from "../SettingScreen/SettingTopbar";
+import {addComment, addLike, getComment} from "../../axios/community";
+import {getData} from "../../axios/asyncStorage";
 
-export const CommentList = ({navigation}) => {
+export const CommentList = ({navigation, route}) => {
+    // {"board": {"comment_cnt": 1, "content": "test", "id": 1, "like_cnt": 1, "location": "서울", "title": "test", "user": "pyo"}}
+    const board = route.params.board;
+    const [comments, setComments] = useState([]);
+    const[newComment, setNewComment] = useState('');
+    const [like_cnt, setLike_cnt] = useState(board.like_cnt);
     const [like, setLike] = useState(false);
+    const [refresh, setRefresh] = useState(false);
+
+    useEffect( () => {
+        if (board.comment_cnt === 0) return;
+        async function fetchComment() {
+            const result = await getComment(board.id);
+            console.log(result.data);
+            return result.data;
+        }
+        fetchComment().then(r => setComments(r));
+    },[refresh]);
+
+    const postComment = async () => {
+        const result = await addComment({
+            "board": board.id,
+            "comment": newComment,
+        })
+        if (result === 201) {
+            setNewComment('');
+            setRefresh(!refresh);
+        }
+        else alert('다시 시도해주세요');
+    }
+
+    const onLikePress = async () => {
+        const user = await getData('userInfo')
+        const result = await addLike({
+            "user": user,
+            "like_posts": board.id
+        })
+        console.log(result);
+        setLike(!like);
+        if (!like) setLike_cnt(like+1);
+        else setLike_cnt(like-1);
+    }
+
     return <SafeAreaView style={{backgroundColor: 'white'}}>
         <SafeAreaView style={styles.entire}>
             <SettingTopbar text="커뮤니티" pressHandler={()=>navigation.navigate('CommunityBoard')}/>
@@ -15,30 +58,24 @@ export const CommentList = ({navigation}) => {
                 <ScrollView>
                     <View style={styles.postContent}>
                         <View style={styles.upperBox}>
-                            <Text style={styles.title}>게시글 제목</Text>
-                            <Text style={styles.region}>서울시</Text>
-                            <Text style={styles.content}>내용내용내용내용</Text>
+                            <Text style={styles.title}>{board.title}</Text>
+                            <Text style={styles.region}>{board.location}</Text>
+                            <Text style={styles.content}>{board.content}</Text>
                         </View>
                         <View style={styles.downBox}>
-                            {like?
-                                <LikeButton title={"좋아요 취소하기"} onPress={()=>setLike(false)}/>
-                                :
-                                <LikeButton title={"좋아요"} onPress={()=>setLike(true)}/>
-                            }
-
-                            <CommentButton title={"댓글"}/>
+                            <LikeButton title={`좋아요 ${like_cnt}개`} like={like} onPress={onLikePress}/>
+                            <CommentButton title={`댓글 ${board.comment_cnt}개`}/>
                         </View>
                     </View>
-
-                    <CommentComponent/>
-                    <CommentComponent/>
-                    <CommentComponent/>
-                    <CommentComponent/>
-                    <CommentComponent/>
-                    <CommentComponent/>
+                    {board.comment_cnt !== 0 &&
+                        comments?.map((comment)=> {
+                            return <CommentComponent comment={comment}/>
+                        })
+                    }
                 </ScrollView>
             </View>
-            <CommentInput placeholder="댓글을 입력하세요."/>
+            <CommentInput comment={newComment} setComment={(text) => setNewComment(text)}
+                          placeholder="댓글을 입력하세요." onPress={postComment}/>
         </SafeAreaView>
     </SafeAreaView>
 }

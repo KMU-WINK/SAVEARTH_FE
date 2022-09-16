@@ -19,10 +19,11 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         borderWidth: 1,
         borderStyle: 'solid',
-        height: "65%",
+        height: "58%",
         fontFamily: 'NotoSansKR_400Regular',
         fontSize:17,
         paddingHorizontal:20,
-        paddingTop:8
+        paddingTop:8,
+        marginTop: 10,
     }
   });

@@ -4,15 +4,28 @@ import {StyleSheet, Text, Pressable, View} from 'react-native';
 import {useState} from "react";
 import {DelPost} from "./DelPost";
 import 'react-native-gesture-handler';
+import {getData} from "../../axios/asyncStorage";
+import {addLike} from "../../axios/community";
 
 export const PostComponent = ({navigation, content}) => {
     const [like, setLike] = useState(false);
-
+    const [like_cnt, setLike_cnt] = useState(content.like_cnt)
     const onPressEvent = () => {
-        navigation.navigate('CommunityComment')
+        navigation.navigate('CommunityComment',{"board": content})
+    }
+    const onLikePress = async () => {
+        const user = await getData('userInfo')
+        const result = await addLike({
+            "user": user,
+            "like_posts": content.id
+        })
+        console.log(result);
+        setLike(!like);
+        if (!like) setLike_cnt(like+1);
+        else setLike_cnt(like-1);
     }
 
-    return <Pressable style={styles.postBox} onPress={onPressEvent}>
+    return <Pressable style={styles.postBox}>
         <View>
             <View style={styles.upperBox}>
                 <View style={styles.del}>
@@ -23,17 +36,10 @@ export const PostComponent = ({navigation, content}) => {
                 <Text style={styles.content}>{content.content}</Text>
             </View>
             <View style={styles.downBox}>
-                <LikeButton title={`좋아요 ${content.like_cnt}개`} like={like} onPress={()=>setLike(!like)}/>
-                <CommentButton title={"댓글"} onPress={onPressEvent}/>
-
+                <LikeButton title={`좋아요 ${like_cnt}개`} like={like} onPress={onLikePress}/>
+                <CommentButton title={`댓글 ${content.comment_cnt}개`} onPress={onPressEvent}/>
             </View>
         </View>
-        {/*{*/}
-        {/*    clicked?*/}
-        {/*        <Text style={styles.title}>눌렷다</Text>*/}
-        {/*        :*/}
-        {/*        <Text style={styles.title}>아니다</Text>*/}
-        {/*}*/}
     </Pressable>
 }
 

@@ -1,8 +1,18 @@
-import {baseService} from "./user";
+import {baseService, url} from "./user";
+import {getData} from "./asyncStorage";
+import axios from "axios";
 
 export const getRecord = async (user_id) => {
+    const token = await getData('token');
     try {
-        return await baseService.get(`/route?user_id=${user_id}`);
+        return await axios.get(`${url}/route/?user_id=${user_id}`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${token.Token}`
+                }
+            }
+        );
     } catch (e) {
         console.log(e.response)
         return e.response
@@ -10,18 +20,24 @@ export const getRecord = async (user_id) => {
 }
 
 export const addRecord = async (args) => {
-    const {date, datetime, activeTime, distance, step} = args;
+    const token = await getData('token');
     try {
-        const response = await baseService.post('/',{
-            date, datetime, activeTime, distance, step
-        })
-        console.log(response);
+        const response = await axios.post(`${url}/route/`,
+            args,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${token.Token}`
+                }
+            },
+        )
         return response.status;
     } catch (e) {
         console.log(e)
         return Number(e.message.slice(e.message.length - 3))
     }
 }
+
 export const delRecord = async (record_id) => {
     try {
         return await baseService.delete(`/trash/${record_id}`);

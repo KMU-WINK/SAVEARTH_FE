@@ -1,12 +1,9 @@
 import {Text, View, StyleSheet} from "react-native";
-import {useState} from "react";
 
-
-export const CommentComponent = () => {
-    const [clicked, setClicked] = useState(false);
-    return <View style={styles.upperBox} onPress={() => setClicked(true)}>
-        <Text style={styles.nickname}>닉네임</Text>
-        <Text style={styles.commentContent}>내용내용내용</Text>
+export const CommentComponent = ({comment}) => {
+    return <View style={styles.upperBox}>
+        <Text style={styles.nickname}>{comment.user}</Text>
+        <Text style={styles.commentContent}>{comment.comment}</Text>
     </View>
 }
 
