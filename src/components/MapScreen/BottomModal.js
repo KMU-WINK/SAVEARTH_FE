@@ -4,7 +4,6 @@ import styled from 'styled-components/native';
 
 export const BottomModal = ({isModalVisible, children, toggleModal}) => {
     return <Modal
-            // animationType={"slide"}
             onBackdropPress={()=>toggleModal()}
             isVisible={isModalVisible}
             style={styles.bottomModal}

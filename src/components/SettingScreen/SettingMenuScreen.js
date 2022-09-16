@@ -10,7 +10,7 @@ export const SettingMenuScreen = ({navigation}) => {
     <Wrapper>
         <Container>
             <Title>설정</Title>
-            <SettingMenuButton text='닉네임 변경하기' pressHandler={()=>navigation.navigate('SettingNickname')}/>
+            {/*<SettingMenuButton text='닉네임 변경하기' pressHandler={()=>navigation.navigate('SettingNickname')}/>*/}
             <SettingMenuButton text='로그아웃' pressHandler={()=>navigation.navigate('Login')}/>
         </Container>
     </Wrapper>
