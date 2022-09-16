@@ -12,7 +12,7 @@ function BirthInput({name, yearValue, setSignUpYear, monthValue, setSignUpMonth,
                     onChangeText={setSignUpYear}
                     keyboardType = 'numeric'
                     maxLength={4}
-                    ></TextInput>
+                />
                 <TextInput
                     style={styles.birth}
                     placeholder={"01"}
@@ -20,7 +20,7 @@ function BirthInput({name, yearValue, setSignUpYear, monthValue, setSignUpMonth,
                     onChangeText={setSignUpMonth}
                     keyboardType = 'numeric'
                     maxLength={2}
-                    ></TextInput>
+                />
                 <TextInput
                     style={styles.birth}
                     placeholder={"01"}
@@ -28,16 +28,17 @@ function BirthInput({name, yearValue, setSignUpYear, monthValue, setSignUpMonth,
                     onChangeText={setSignUpDay}
                     keyboardType = 'numeric'
                     maxLength={2}
-                    ></TextInput>
+                />
             </View>
         </View>
-        
+
     );
 }
 export default BirthInput;
 
 const styles = StyleSheet.create({
     container:{
+        marginTop: 10,
         marginBottom:16
     },
     name:{

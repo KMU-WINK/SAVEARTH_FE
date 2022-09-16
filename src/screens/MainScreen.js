@@ -7,6 +7,7 @@ import {MapScreen} from "./MapScreen"
 import {RecordScreen} from "./RecordScreen";
 import {CommunityScreen} from "./CommunityScreen";
 import {SettingScreen} from "./SettingScreen";
+
 const Tab = createBottomTabNavigator();
 
 export const MainScreen = () => {

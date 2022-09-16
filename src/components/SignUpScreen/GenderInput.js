@@ -19,12 +19,13 @@ function GenderInput({name, selectedValue, leftValue, rightValue, setValue}){
       </View>
     </View>
   );
-};
+}
 
 export default GenderInput;
 
 const styles = StyleSheet.create({
   container:{
+    marginTop: 10,
     marginBottom:21
   },
   name:{

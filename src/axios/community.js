@@ -22,7 +22,7 @@ export const getBoard = async () => {
 export const getComment = async (board_id) => {
     const token = await getData('token');
     try {
-        return await axios.get(`${url}/community/comment/${board_id}`,
+        return await axios.get(`${url}/community/comment/${board_id}/`,
             {
                 headers: {
                     'Content-Type': 'application/json',
