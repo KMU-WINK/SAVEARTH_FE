@@ -46,8 +46,8 @@ export const CommentList = ({navigation, route}) => {
         })
         console.log(result);
         setLike(!like);
-        if (!like) setLike_cnt(like+1);
-        else setLike_cnt(like-1);
+        if (!like) setLike_cnt(like_cnt+1);
+        else setLike_cnt(like_cnt-1);
     }
 
     return <SafeAreaView style={{backgroundColor: 'white'}}>

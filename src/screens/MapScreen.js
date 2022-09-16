@@ -7,7 +7,7 @@ import {Wrapper} from "./HomeScreen";
 import {ShowModal} from "../components/MapScreen/ShowModal";
 import {addTrashCan, delTrashCan, getTrashCan} from "../axios/trashcan";
 import {addTrash, delTrash, getTrash} from "../axios/trash";
-import {ModalBtn} from "../components/MapScreen/ModalBtn";
+import {BtnText} from "../components/MapScreen/ModalBtn";
 
 export const MapScreen = () => {
     const [location, setLocation] = useState({});
@@ -86,7 +86,9 @@ export const MapScreen = () => {
             <Container>
                 <TitleContainer>
                     <Title>지도</Title>
-                    <ModalBtn full title="새로고침" w={80} h={40} onPress={()=>setRefresh(!refresh)}/>
+                    <Button onPress={()=>setRefresh(!refresh)}>
+                        <BtnText full>새로고침</BtnText>
+                    </Button>
                 </TitleContainer>
 
                 <MapView
@@ -109,7 +111,7 @@ export const MapScreen = () => {
                         return <Marker
                             key={`trash-${res.id}`}
                             coordinate={{latitude:res.trash_x, longitude:res.trash_y}}
-                            image="https://user-images.githubusercontent.com/54919662/186675058-62988681-ae0c-4d03-aaa2-7ed19af31b97.png"
+                            image={require('../components/MapScreen/trashMarker.png')}
                             title='쓰레기 위치'
                             onPress={() => {
                                 setModalType(2);
@@ -121,7 +123,7 @@ export const MapScreen = () => {
                         return <Marker
                             key={`trashcan-${res.id}`}
                             coordinate={{latitude:res.trashcan_x, longitude:res.trashcan_y}}
-                            image="https://user-images.githubusercontent.com/54919662/186675229-b2e73f22-d989-4290-8204-0c38fa38ed88.png"
+                            image={require('../components/MapScreen/trashcanMarker.png')}
                             title='쓰레기통 위치'
                             onPress={() => {
                                 setModalType(3);
@@ -166,3 +168,15 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height - 210,
     },
 });
+
+const Button = styled.TouchableOpacity`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #218EF2;
+  border: 2px solid #218EF2;
+  border-radius: 100px;
+  width: 80px;
+  height: 40px;
+  margin-bottom: 20px;
+`
