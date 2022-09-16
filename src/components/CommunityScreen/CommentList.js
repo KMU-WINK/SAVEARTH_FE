@@ -21,7 +21,6 @@ export const CommentList = ({navigation, route}) => {
         if (board.comment_cnt === 0) return;
         async function fetchComment() {
             const result = await getComment(board.id);
-            console.log(result.data);
             return result.data;
         }
         fetchComment().then(r => setComments(r));
@@ -69,7 +68,7 @@ export const CommentList = ({navigation, route}) => {
                     </View>
                     {board.comment_cnt !== 0 &&
                         comments?.map((comment)=> {
-                            return <CommentComponent comment={comment}/>
+                            return <CommentComponent key={`board-${board.id}-comment-${comment.id}`} comment={comment}/>
                         })
                     }
                 </ScrollView>

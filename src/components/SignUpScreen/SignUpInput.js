@@ -11,7 +11,6 @@ function SignUpInput({name, value, setValue, placeholder, secureTextEntry}){
                 onChangeText={setValue}
                 placeholder={placeholder}
                 />
-            <Text style={styles.message}>조건</Text>
         </View>
 
     );
@@ -20,6 +19,7 @@ export default SignUpInput;
 
 const styles = StyleSheet.create({
     container:{
+        marginTop: 10,
         marginBottom:16
     },
     name:{

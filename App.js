@@ -23,7 +23,7 @@ export default function App() {
   if (!fontsLoaded) return null;
   return <SafeAreaProvider>
     <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Navigator screenOptions={{gestureEnabled: false,headerShown: false}}>
             <Stack.Screen name="Login" component={LoginScreen}/>
             <Stack.Screen name="SignUp" component={SignUpScreen}/>
             <Stack.Screen name="MainScreen" component={MainScreen}/>

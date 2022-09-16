@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import {useState} from 'react';
 import BottomButton from '../components/SignUpScreen/BottomButton';
 import SignUpInput from '../components/SignUpScreen/SignUpInput';
@@ -23,6 +23,10 @@ export const SignUpScreen=({navigation})=> {
     setSignUpGender(gender)
   };
 
+  const onBackPress = () => {
+    navigation.navigate('Login')
+  }
+
   const pressHandler = async() => {
     const result = await signup({
       nickname: signUpId,
@@ -37,7 +41,7 @@ export const SignUpScreen=({navigation})=> {
     console.log(result);
     // 201: 회원가입 성공
     if (result === 201) navigation.navigate('Login');
-
+    else alert('다시 시도해주세요');
   };
 
     return (
@@ -45,8 +49,8 @@ export const SignUpScreen=({navigation})=> {
         <Container>
           <SettingTopbar
             text={"회원가입"}
-            pressHandler={pressHandler}/>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            pressHandler={onBackPress}/>
+            <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:20}}>
                 <SignUpInput
                   name={"아이디"}
                   value={signUpId}
@@ -76,6 +80,7 @@ export const SignUpScreen=({navigation})=> {
                   leftValue={"남"} rightValue={"여"}
                   setValue={GenderHandler}/>
             </ScrollView>
+
             <BottomButton
               text={"완료"}
               buttonControl={signUpId&& signUpPw&& signUpName&& signUpYear&& signUpMonth&& signUpDay}
