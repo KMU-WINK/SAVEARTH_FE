@@ -1,20 +1,18 @@
-import { StyleSheet, TextInput, View, Text } from 'react-native';
+import { StyleSheet, TextInput, View} from 'react-native';
 import {CommunityComBtn} from "./CommunityComBtn";
 
-function CommentInput({name, value, setValue, placeholder}){
+function CommentInput({comment, setComment, onPress, placeholder}){
     return(
         <View style={styles.container}>
-            <Text style={styles.name}>{name}</Text>
             <View style={styles.inputWrapper}>
                 <TextInput
                     style={styles.input}
                     placeholder={placeholder}
-                    value={value}
-                    onChangeText={setValue}
+                    value={comment}
+                    onChangeText={setComment}
                     multiline={true}
-                >
-                </TextInput>
-                <CommunityComBtn title="v" onPress={()=>console.log("지료완롱")}/>
+                />
+                <CommunityComBtn title="v" onPress={onPress}/>
             </View>
         </View>
 
@@ -24,7 +22,8 @@ export default CommentInput;
 
 const styles = StyleSheet.create({
     container:{
-        height: 150,
+        height: 160,
+        paddingTop: 20,
     },
     name:{
         textAlign: 'center',

@@ -1,16 +1,11 @@
 import {RecordComponent} from  './recordComponent';
 import {View} from "react-native";
 
-export const RecordList = () => {
+export const RecordList = ({records}) => {
     return <View>
-        <RecordComponent/>
-        <RecordComponent/>
-        <RecordComponent/>
-        <RecordComponent/>
-        <RecordComponent/>
-        <RecordComponent/>
-        <RecordComponent/>
-        <RecordComponent/>
-        <RecordComponent/>
+        {records?.reverse().map((record)=> {
+            return <RecordComponent key={`record-${record.id}`} datetime={record.datetime} time={record.time}
+                          steps={record.steps} distance={record.distance}/>
+        })}
     </View>
 }

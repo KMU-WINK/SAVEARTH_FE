@@ -1,12 +1,14 @@
-import { StyleSheet,SafeAreaView, Pressable, Text, View } from 'react-native';
+import {StyleSheet, SafeAreaView, Pressable, Text, View, ImageBackground} from 'react-native';
 import {useState} from 'react';
 import LoginInput from '../components/LoginScreen/LoginInput';
 import BottomButton from '../components/LoginScreen/BottomButton';
 import 'react-native-gesture-handler';
+import {login} from "../axios/user";
 
 export const LoginScreen=({navigation})=>{
     const[id, setId] =useState('');
     const [pw, setPw] = useState('');
+    const [error, setError] = useState('');
 
     const idHandler=(text)=>{
         setId(text)
@@ -16,9 +18,23 @@ export const LoginScreen=({navigation})=>{
         setPw(text)
     }
 
+    const onLoginPress = async() => {
+        const result = await login({
+            username:id,
+            password:pw
+        })
+        console.log(result);
+        // 202 : 로그인 성공 , 403 : csrf 토큰 값 없음 , 400 : 아이디, 비밀번호 불일치
+        if (result === 202) navigation.navigate('MainScreen');
+        else if (result === 400) setError("아이디 또는 비밀번호가 일치하지 않습니다.");
+        else setError("예상치 못한 오류가 발생했습니다.\n잠시후 다시 시도해주세요.")
+    }
+
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.image}/>
+            {/*<View style={styles.imageWrapper}>*/}
+                <ImageBackground style={styles.imageWrapper} source={require('../components/LoginScreen/savearth_icon.jpeg')}/>
+            {/*</View>*/}
             <Text style={styles.title}>SAVEARTH</Text>
 
               <LoginInput
@@ -32,6 +48,7 @@ export const LoginScreen=({navigation})=>{
                   setValue={pwHandler}
                   placeholder={"비밀번호를 입력해주세요"}
                   // secureTextEntry={true}
+                  errorMessage={error}
               />
 
             <View style={styles.signUpTextContainer}>
@@ -41,7 +58,7 @@ export const LoginScreen=({navigation})=>{
             <BottomButton
               style={styles.loginButton }
               text={"로그인"}
-              pressHandler={()=>navigation.navigate('MainScreen')}
+              pressHandler={onLoginPress}
               buttonControl={id&&pw}/>
         </SafeAreaView>
     );
@@ -55,14 +72,15 @@ export const LoginScreen=({navigation})=>{
         justifyContent: 'flex-end'
 
     },
-    image:{
+    imageWrapper:{
       width:105,
       height:105,
-      borderColor: 'black',
-      borderWidth:2,
-      borderRadius: 20,
+      // borderColor: 'black',
+      // borderWidth:2,
+      // borderRadius: 20,
       marginBottom: 10,
-      marginTop: 134
+      marginTop: 134,
+
     },
     title:{
       fontWeight: 'bold',

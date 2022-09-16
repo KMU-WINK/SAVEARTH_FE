@@ -1,6 +1,6 @@
 import { StyleSheet, TextInput, View, Text } from 'react-native';
 
-function LoginInput({name, value, setValue, placeholder, secureTextEntry}){
+function LoginInput({name, value, setValue, placeholder, secureTextEntry, errorMessage}){
     return(
         <View style={styles.container}>
             <Text style={styles.name}>{name}</Text>
@@ -11,7 +11,7 @@ function LoginInput({name, value, setValue, placeholder, secureTextEntry}){
                 secureTextEntry={secureTextEntry}
                 onChangeText={setValue}
             />
-            {secureTextEntry?<Text style={styles.message}>제약조건</Text>:null}
+            {errorMessage && <Text style={styles.message}>{errorMessage}</Text>}
         </View>
 
     );
@@ -43,6 +43,6 @@ const styles = StyleSheet.create({
         textAlign:'center',
         marginTop:10,
         fontSize: 12,
-        color: '#E0E0E0'
+        color: 'red'
     }
   });

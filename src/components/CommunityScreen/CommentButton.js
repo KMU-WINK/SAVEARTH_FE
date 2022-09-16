@@ -8,12 +8,7 @@ export const CommentButton = ({title, onPress}) => {
 
 
 const CommentButtons = styled.TouchableOpacity`
-  //margin: 0 30px;
   font-size: 12pt;
-  //color: black;
-  //height: 52px;
-  //background: #FFFFFF;
-  //border-radius: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,6 +16,5 @@ const CommentButtons = styled.TouchableOpacity`
 const CommentTitle = styled.Text`
   font-family: "NotoSansKR_700Bold";
   font-size: 12px;
-  //text-align: center;
   color: black;
 `
